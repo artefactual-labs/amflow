@@ -1,0 +1,18 @@
+{
+  "license": "ISC",
+  "scripts": {
+    "build": "parcel build --out-dir ../public/web index.html",
+    "watch": "parcel watch --out-dir ../public/web index.html"
+  },
+  "devDependencies": {
+    "axios": "^0.18.0",
+    "cssnano": "^4.1.8",
+    "jquery": "^3.3.1",
+    "panzoom": "^7.1.2",
+    "parcel-bundler": "^1.9.7",
+    "requirejs": "^2.3.6"
+  },
+  "resolutions": {
+    "fsevents": "npm:dummypkg-a@1.0.0"
+  }
+}
