@@ -1,0 +1,218 @@
+consumes:
+- application/json
+definitions:
+  error:
+    description: Error response media type (default view)
+    example:
+      code: invalid_value
+      detail: Value of ID must be an integer
+      id: 3F1FKVRR
+      meta:
+        timestamp: 1458609066
+      status: "400"
+    properties:
+      code:
+        description: an application-specific error code, expressed as a string value.
+        example: invalid_value
+        type: string
+      detail:
+        description: a human-readable explanation specific to this occurrence of the
+          problem.
+        example: Value of ID must be an integer
+        type: string
+      id:
+        description: a unique identifier for this particular occurrence of the problem.
+        example: 3F1FKVRR
+        type: string
+      meta:
+        additionalProperties: true
+        description: a meta object containing non-standard meta-information about
+          the error.
+        example:
+          timestamp: 1458609066
+        type: object
+      status:
+        description: the HTTP status code applicable to this problem, expressed as
+          a string value.
+        example: "400"
+        type: string
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+externalDocs:
+  description: amflow README
+  url: https://github.com/sevein/amflow
+host: localhost
+info:
+  description: Archivematica workflow editor
+  title: amflow
+  version: ""
+paths:
+  /{filepath}:
+    get:
+      operationId: web#/*filepath
+      parameters:
+      - description: Relative file path
+        in: path
+        name: filepath
+        required: true
+        type: string
+      responses:
+        "200":
+          description: File downloaded
+          schema:
+            type: file
+        "404":
+          description: File not found
+          schema:
+            $ref: '#/definitions/error'
+      schemes:
+      - http
+      summary: Download public/web/
+  /schema/{filepath}:
+    get:
+      operationId: schema#/schema/*filepath
+      parameters:
+      - description: Relative file path
+        in: path
+        name: filepath
+        required: true
+        type: string
+      responses:
+        "200":
+          description: File downloaded
+          schema:
+            type: file
+        "404":
+          description: File not found
+          schema:
+            $ref: '#/definitions/error'
+      schemes:
+      - http
+      summary: Download public/schema/
+  /swagger/{filepath}:
+    get:
+      operationId: swagger#/swagger/*filepath
+      parameters:
+      - description: Relative file path
+        in: path
+        name: filepath
+        required: true
+        type: string
+      responses:
+        "200":
+          description: File downloaded
+          schema:
+            type: file
+        "404":
+          description: File not found
+          schema:
+            $ref: '#/definitions/error'
+      schemes:
+      - http
+      summary: Download public/swagger/
+  /workflow/{workflowID}:
+    get:
+      description: Read workflow
+      operationId: workflow#show
+      parameters:
+      - description: Workflow ID
+        in: path
+        name: workflowID
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: Not Found
+      schemes:
+      - http
+      summary: show workflow
+      tags:
+      - workflow
+  /workflow/{workflowID}/links:
+    patch:
+      description: Add link
+      operationId: workflow#addLink
+      parameters:
+      - description: Workflow ID
+        in: path
+        name: workflowID
+        required: true
+        type: string
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: Not Found
+      schemes:
+      - http
+      summary: addLink workflow
+      tags:
+      - workflow
+  /workflow/{workflowID}/links/{linkID}:
+    delete:
+      description: Delete link
+      operationId: workflow#deleteLink
+      parameters:
+      - description: Link ID
+        in: path
+        name: linkID
+        required: true
+        type: string
+      - description: Workflow ID
+        in: path
+        name: workflowID
+        required: true
+        type: string
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: Not Found
+      schemes:
+      - http
+      summary: deleteLink workflow
+      tags:
+      - workflow
+    patch:
+      description: Move link
+      operationId: workflow#moveLink
+      parameters:
+      - description: Link ID
+        in: path
+        name: linkID
+        required: true
+        type: string
+      - description: Workflow ID
+        in: path
+        name: workflowID
+        required: true
+        type: string
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: Not Found
+      schemes:
+      - http
+      summary: moveLink workflow
+      tags:
+      - workflow
+produces:
+- application/json
+- application/xml
+responses:
+  NotFound:
+    description: Not Found
+  OK:
+    description: OK
+schemes:
+- http
+swagger: "2.0"

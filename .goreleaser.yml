@@ -1,0 +1,38 @@
+project_name: amflow
+before:
+  hooks:
+  - make clean
+  - make deps
+  - go generate
+builds:
+- ldflags:
+  - -s -w -X github.com/sevein/amflow/internal/version.version={{.Version}}
+  env:
+  - CGO_ENABLED=0
+  goos:
+  - darwin
+  - windows
+  - linux
+  goarch:
+  - amd64
+archive:
+  name_template: "{{ .ProjectName }}-{{ .Os }}-{{ .Arch }}"
+  format: binary
+checksum:
+  name_template: "{{ .ProjectName }}-checksums.txt"
+nfpm:
+  formats:
+  - deb
+  dependencies:
+  - graphviz
+dockers:
+- goos: linux
+  goarch: amd64
+  image_templates:
+  - "sevein/amflow:latest"
+  - "sevein/amflow:v{{ .Major }}"
+  dockerfile: Dockerfile.release
+  build_flag_templates:
+  - "--label=org.label-schema.schema-version=1.0"
+  - "--label=org.label-schema.version={{.Version}}"
+  - "--label=org.label-schema.name={{.ProjectName}}"
