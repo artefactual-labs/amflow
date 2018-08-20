@@ -1,0 +1,5 @@
+# This is used by GoReleaser.
+FROM alpine:3.8 AS final
+RUN apk --no-cache add ca-certificates graphviz
+COPY amflow /
+ENTRYPOINT ["/amflow"]
