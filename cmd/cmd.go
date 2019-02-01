@@ -9,6 +9,7 @@ import (
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
+	"go.uber.org/multierr"
 
 	"github.com/sevein/amflow/internal/constants"
 	"github.com/sevein/amflow/internal/graph"
@@ -92,6 +93,12 @@ func load(file string) (*graph.Workflow, error) {
 		"bytes":    len(bytes),
 		"vertices": w.Nodes().Len(),
 	}).Debug("Workflow loaded")
+
+	for _, err := range multierr.Errors(w.Check()) {
+		logrus.WithFields(logrus.Fields{
+			"err": err,
+		}).Warn("Unhealthy workflow warning")
+	}
 
 	return w, nil
 }

@@ -25,6 +25,8 @@ require (
 	github.com/spf13/cobra v0.0.3
 	github.com/stretchr/testify v1.3.0
 	github.com/zach-klippenstein/goregen v0.0.0-20160303162051-795b5e3961ea // indirect
+	go.uber.org/atomic v1.3.2 // indirect
+	go.uber.org/multierr v1.1.0
 	golang.org/x/crypto v0.0.0-20190123085648-057139ce5d2b // indirect
 	golang.org/x/exp v0.0.0-20190125153040-c74c464bbbf2 // indirect
 	golang.org/x/net v0.0.0-20190125091013-d26f9f9a57f3 // indirect

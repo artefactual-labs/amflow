@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"github.com/gobuffalo/packr/v2"
+	"go.uber.org/multierr"
 	"gonum.org/v1/gonum/graph"
 	"gonum.org/v1/gonum/graph/simple"
 	"gonum.org/v1/gonum/graph/topo"
@@ -92,10 +93,64 @@ func (w Workflow) hasMultipleComponents() bool {
 	return len(cc) > 1
 }
 
+// Check looks for inconsistencies in the graph. It returns a multiError
+// created with the go.uber.org/multierr module.
+func (w Workflow) Check() error {
+	var err error
+	for _, item := range w.watchedDirs() {
+		id := item.ID()
+		f, t := w.From(id), w.To(id)
+		if f.Len() == 0 {
+			err = multierr.Append(err, fmt.Errorf("[%s] watched directory does not make references", item.AMID()))
+		}
+		if t.Len() == 0 && !item.isInitiator() {
+			err = multierr.Append(err, fmt.Errorf("[%s] watched directory is not referenced", item.AMID()))
+		}
+	}
+	for _, item := range w.chains() {
+		f, t := w.From(item.ID()), w.To(item.ID())
+		if f.Len() == 0 {
+			err = multierr.Append(err, fmt.Errorf("[%s] chain does not make references", item.AMID()))
+		}
+		if t.Len() == 0 {
+			err = multierr.Append(err, fmt.Errorf("[%s] chain is not referenced", item.AMID()))
+		}
+	}
+	for _, item := range w.links() {
+		t := w.To(item.ID())
+		if t.Len() == 0 {
+			err = multierr.Append(err, fmt.Errorf("[%s] link is not referenced", item.AMID()))
+		}
+	}
+	return err
+}
+
 func (w Workflow) watchedDirs() []*VertexWatcheDir {
 	ret := []*VertexWatcheDir{}
 	for _, v := range w.vxByID {
 		vwd, ok := v.(*VertexWatcheDir)
+		if ok {
+			ret = append(ret, vwd)
+		}
+	}
+	return ret
+}
+
+func (w Workflow) chains() []*VertexChainLink {
+	ret := []*VertexChainLink{}
+	for _, v := range w.vxByID {
+		vwd, ok := v.(*VertexChainLink)
+		if ok {
+			ret = append(ret, vwd)
+		}
+	}
+	return ret
+}
+
+func (w Workflow) links() []*VertexLink {
+	ret := []*VertexLink{}
+	for _, v := range w.vxByID {
+		vwd, ok := v.(*VertexLink)
 		if ok {
 			ret = append(ret, vwd)
 		}
