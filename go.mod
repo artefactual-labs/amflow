@@ -15,6 +15,8 @@ require (
 	github.com/jtolds/gls v4.2.1+incompatible // indirect
 	github.com/manveru/faker v0.0.0-20171103152722-9fbc68a78c4d // indirect
 	github.com/manveru/gobdd v0.0.0-20131210092515-f1a17fdd710b // indirect
+	github.com/mattn/go-runewidth v0.0.4 // indirect
+	github.com/olekukonko/tablewriter v0.0.1
 	github.com/pascaldekloe/goe v0.0.0-20180627143212-57f6aae5913c // indirect
 	github.com/pkg/errors v0.8.1
 	github.com/satori/go.uuid v1.2.1-0.20181028125025-b2ce2384e17b // indirect

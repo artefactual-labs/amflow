@@ -2,10 +2,9 @@ package cmd
 
 import (
 	"errors"
-	"fmt"
 	"io"
-	"text/tabwriter"
 
+	"github.com/olekukonko/tablewriter"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 
@@ -14,8 +13,8 @@ import (
 )
 
 var (
-	searchFile string
-	searchTo   string
+	searchFile     string
+	searchTo       string
 )
 
 func newCmdSearch(out io.Writer) *cobra.Command {
@@ -36,8 +35,6 @@ func search(out io.Writer) error {
 		return err
 	}
 
-	checkDot()
-
 	if searchTo == "" {
 		return errors.New("the target is not defined, use argument --to=<uuid>")
 	}
@@ -47,31 +44,50 @@ func search(out io.Writer) error {
 		return errors.New("no results found")
 	}
 
-	wr := tabwriter.NewWriter(out, 0, 0, 3, ' ', tabwriter.AlignRight|tabwriter.Debug)
+	table := tablewriter.NewWriter(out)
+	table.SetHeader([]string{"ID", "Type", "Module", "Description"})
 	for id := range ints {
 		vertice := w.VertexByID(id)
-		var t, amid, name, details string
+		var t, amid, desc, module string
 		amid = vertice.AMID()
 		switch v := vertice.(type) {
 		case *graph.VertexChainLink:
 			t = "Chain"
 			_ch := vertice.Source().(*amjson.Chain)
-			name = _ch.Description["en"]
+			desc = _ch.Description["en"]
 		case *graph.VertexLink:
 			t = "Link"
 			_ln := vertice.Source().(*amjson.Link)
-			name = _ln.Description["en"]
-			details = _ln.Config.Execute
+			desc = _ln.Description["en"]
+			module = _ln.Config.Execute
 		case *graph.VertexWatcheDir:
 			t = "Watched directory"
 			_wd := vertice.Source().(*amjson.WatchedDirectory)
-			name = _wd.Path
+			desc = _wd.Path
 		default:
 			logrus.Warnf("I don't know about %+v", v)
 		}
-		fmt.Fprintln(wr, fmt.Sprintf("\t%d\t%s\t%s\t%s\t%s\t", id, t, amid, name, details))
+		table.Append([]string{
+			truncate(amid, 36),
+			t,
+			truncate(module, 30),
+			truncate(desc, 30),
+		})
 	}
-	wr.Flush()
+	table.Render()
 
 	return nil
+}
+
+func truncate(input string, size int) string {
+	const dots = "..."
+	const dotsLen = 3
+	ret := input
+	if len(input) > size {
+		if size > dotsLen {
+			size -= dotsLen
+		}
+		ret = ret[0:size] + dots
+	}
+	return ret
 }
