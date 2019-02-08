@@ -11,8 +11,9 @@ import (
 )
 
 var (
-	editFile string
-	editAddr string
+	editFile   string
+	editAddr   string
+	editLatest bool
 )
 
 func newCmdEdit(out io.Writer) *cobra.Command {
@@ -23,12 +24,18 @@ func newCmdEdit(out io.Writer) *cobra.Command {
 			return edit(out)
 		},
 	}
-	cmd.Flags().StringVarP(&editFile, "file", "f", "", "Path of JSON-encoded workflow document")
+	cmd.Flags().StringVarP(&editFile, "file", "f", "", "Path or URL of the JSON-encoded workflow document")
 	cmd.Flags().StringVarP(&editAddr, "addr", "", ":2323", "HTTP service address (default: ':2323')")
+	cmd.Flags().BoolVarP(&editLatest, "latest", "", false, "Download the latest workflow available in QA")
 	return cmd
 }
 
+const latestWorkflow = "https://raw.githubusercontent.com/artefactual/archivematica/qa/1.x/src/MCPServer/lib/assets/workflow.json"
+
 func edit(out io.Writer) error {
+	if editLatest {
+		editFile = latestWorkflow
+	}
 	w, err := load(editFile)
 	if err != nil {
 		return err

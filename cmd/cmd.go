@@ -1,8 +1,11 @@
 package cmd
 
 import (
+	"fmt"
 	"io"
 	"io/ioutil"
+	"net/http"
+	"net/url"
 	"os"
 	"os/exec"
 
@@ -71,14 +74,17 @@ func load(file string) (*graph.Workflow, error) {
 
 	// Load workflow bytes.
 	if file == "" {
-		logrus.WithFields(logrus.Fields{"mode": "embedded"}).Debug("Loading workfow")
+		logrus.WithFields(logrus.Fields{"mode": "embedded"}).Info("Loading workfow")
 		bytes, err = graph.WorkflowSchemaBox.Find("example.json")
+	} else if isURL(file) {
+		logrus.WithFields(logrus.Fields{"mode": "file", "source": file}).Info("Downloading workfow")
+		bytes, err = downloadRemote(file)
 	} else {
-		logrus.WithFields(logrus.Fields{"mode": "file", "source": file}).Debug("Loading workfow")
+		logrus.WithFields(logrus.Fields{"mode": "file", "source": file}).Info("Loading workfow")
 		bytes, err = ioutil.ReadFile(file)
 	}
 	if err != nil {
-		return nil, err
+		return nil, errors.WithMessage(err, "Workflow could not be retrieved")
 	}
 
 	// Decode it.
@@ -94,6 +100,7 @@ func load(file string) (*graph.Workflow, error) {
 		"vertices": w.Nodes().Len(),
 	}).Debug("Workflow loaded")
 
+	// Check for errors.
 	for _, err := range multierr.Errors(w.Check()) {
 		logrus.WithFields(logrus.Fields{
 			"err": err,
@@ -101,6 +108,33 @@ func load(file string) (*graph.Workflow, error) {
 	}
 
 	return w, nil
+}
+
+func isURL(addr string) bool {
+	u, err := url.Parse(addr)
+	if err != nil {
+		return false
+	}
+	if u.Scheme == "" {
+		return false
+	}
+	return true
+}
+
+func downloadRemote(addr string) ([]byte, error) {
+	resp, err := http.Get(addr)
+	if err != nil {
+		return nil, errors.WithMessage(err, "remote resource could not be retrieved")
+	}
+	if resp.StatusCode < 200 || resp.StatusCode > 299 {
+		return nil, fmt.Errorf("remote server returned and unexpected response with status code: %d", resp.StatusCode)
+	}
+	defer resp.Body.Close()
+	bytes, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, errors.WithMessage(err, "remote resource could not be loaded")
+	}
+	return bytes, nil
 }
 
 func checkDot() {
