@@ -13,13 +13,14 @@ import (
 )
 
 var (
-	searchFile     string
-	searchTo       string
+	searchFile string
+	searchTo   string
 )
 
 func newCmdSearch(out io.Writer) *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "search",
+		Use:   "search",
+		Short: "Experimenal solution to do searches in the workflow graph",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			return search(out)
 		},

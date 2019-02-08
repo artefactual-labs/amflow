@@ -2,11 +2,19 @@
 
 ## Installation
 
-Download the [latest binary][0] or use the [Docker image][1] as follows:
+Download the [latest binary][0] and simply run it, e.g.:
 
-    $ docker run -p 2323:2323 --rm sevein/amflow:latest edit
+    $ ./amflow help
 
-The web application should be accessible via http://127.0.0.1:2323.
+You can also use the [Docker image][1], e.g.:
+
+    $ docker run --rm sevein/amflow:latest help
+
+## Usage examples
+
+Serve the latest workflow document found in Archivematica's GitHub repository. It should be accessible at http://127.0.0.1:2323.
+
+    $ docker run -p 2323:2323 --rm sevein/amflow:latest edit --latest
 
 ## API docs
 
