@@ -2,6 +2,7 @@ package api
 
 import (
 	"net/http"
+	"time"
 
 	"github.com/goadesign/goa"
 	logadapter "github.com/goadesign/goa/logging/logrus"
@@ -20,6 +21,10 @@ func Create(graph *graph.Workflow, logger *logrus.Entry) *goa.Service {
 	service.Use(middleware.ErrorHandler(service, true))
 	service.Use(middleware.Recover())
 	service.WithLogger(logadapter.FromEntry(logger))
+
+	// Sane server timeouts.
+	service.Server.ReadTimeout = 5 * time.Second
+	service.Server.WriteTimeout = 10 * time.Second
 
 	// Workflow controller.
 	app.MountWorkflowController(service, controllers.NewWorkflow(service, graph))

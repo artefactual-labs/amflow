@@ -36,9 +36,14 @@ func (c *WorkflowController) MoveLink(ctx *app.MoveLinkWorkflowContext) error {
 	return nil
 }
 
-func (c *WorkflowController) Show(ctx *app.ShowWorkflowContext) error {
+var blob []byte
+
+func (c *WorkflowController) Show(ctx *app.ShowWorkflowContext) (err error) {
 	start := time.Now()
-	blob, err := c.graph.SVG()
+	// Avoid generation if it's already cached.
+	if blob == nil {
+		blob, err = c.graph.SVG()
+	}
 	elapsed := time.Since(start)
 	c.Service.LogInfo("svg", "elapsed", elapsed)
 	if err != nil {
