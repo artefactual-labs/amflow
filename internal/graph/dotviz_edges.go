@@ -34,7 +34,7 @@ func (e exitCodeEdge) Attributes() []encoding.Attribute {
 	attrs := []encoding.Attribute{
 		{Key: "label", Value: esc(fmt.Sprintf("%s (code %d)%s", e.status, e.code, fallbackDetail))},
 	}
-	if e.code > 0 {
+	if e.status == "Failed" {
 		attrs = append(attrs, encoding.Attribute{Key: "color", Value: "red"})
 	}
 	return attrs
