@@ -10,7 +10,7 @@ import (
 	"gonum.org/v1/gonum/graph/simple"
 	"gonum.org/v1/gonum/graph/topo"
 
-	amjson "github.com/sevein/amflow/internal/graph/encoding"
+	amjson "github.com/artefactual-labs/amflow/internal/graph/encoding"
 )
 
 var WorkflowSchemaBox = packr.New("workflow", "./schema")

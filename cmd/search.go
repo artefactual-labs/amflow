@@ -8,8 +8,8 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 
-	"github.com/sevein/amflow/internal/graph"
-	amjson "github.com/sevein/amflow/internal/graph/encoding"
+	"github.com/artefactual-labs/amflow/internal/graph"
+	amjson "github.com/artefactual-labs/amflow/internal/graph/encoding"
 )
 
 var (

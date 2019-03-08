@@ -16,7 +16,7 @@ import (
 	"fmt"
 	"github.com/goadesign/goa"
 	"github.com/goadesign/goa/goatest"
-	"github.com/sevein/amflow/internal/api/app"
+	"github.com/artefactual-labs/amflow/internal/api/app"
 	"io"
 	"log"
 	"net/http"

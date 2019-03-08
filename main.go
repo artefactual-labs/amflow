@@ -8,7 +8,7 @@ import (
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 
-	"github.com/sevein/amflow/cmd"
+	"github.com/artefactual-labs/amflow/cmd"
 )
 
 func main() {

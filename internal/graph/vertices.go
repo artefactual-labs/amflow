@@ -6,7 +6,7 @@ import (
 
 	"gonum.org/v1/gonum/graph"
 
-	amjson "github.com/sevein/amflow/internal/graph/encoding"
+	amjson "github.com/artefactual-labs/amflow/internal/graph/encoding"
 )
 
 // Vertex is the fundamental unit to describe operations in the workflow.

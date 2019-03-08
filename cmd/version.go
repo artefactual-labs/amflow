@@ -6,7 +6,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/sevein/amflow/internal/version"
+	"github.com/artefactual-labs/amflow/internal/version"
 )
 
 func newCmdVersion(out io.Writer) *cobra.Command {

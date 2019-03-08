@@ -24,10 +24,10 @@ deps:
 
 .PHONY: goagen
 goagen:
-	@goagen app     -d github.com/sevein/amflow/design -o internal/api
-	@goagen swagger -d github.com/sevein/amflow/design -o public
-	@goagen schema  -d github.com/sevein/amflow/design -o public
-	@goagen js      -d github.com/sevein/amflow/design -o ui/js/client --noexample
+	@goagen app     -d github.com/artefactual-labs/amflow/design -o internal/api
+	@goagen swagger -d github.com/artefactual-labs/amflow/design -o public
+	@goagen schema  -d github.com/artefactual-labs/amflow/design -o public
+	@goagen js      -d github.com/artefactual-labs/amflow/design -o ui/js/client --noexample
 
 .PHONY: clean
 clean:
@@ -41,8 +41,8 @@ build: prebuild
 	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 GOFLAGS=-ldflags=-w \
 	  go build \
 	    -o dist/amflow \
-	    -ldflags="-s -X github.com/sevein/amflow/internal/version.version=try" \
-	      github.com/sevein/amflow
+	    -ldflags="-s -X github.com/artefactual-labs/amflow/internal/version.version=try" \
+	      github.com/artefactual-labs/amflow
 
 .PHONY: generate
 generate:

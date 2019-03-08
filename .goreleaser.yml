@@ -6,7 +6,7 @@ before:
   - make prebuild
 builds:
 - ldflags:
-  - -s -w -X github.com/sevein/amflow/internal/version.version={{.Version}}
+  - -s -w -X github.com/artefactual-labs/amflow/internal/version.version={{.Version}}
   env:
   - CGO_ENABLED=0
   goos:

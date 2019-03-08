@@ -24,7 +24,7 @@ Serve the latest workflow document found in Archivematica's GitHub repository. I
 
 ## API docs
 
-See http://petstore.swagger.io/?url=https://raw.githubusercontent.com/sevein/amflow/main/public/swagger/swagger.yaml.
+See http://petstore.swagger.io/?url=https://raw.githubusercontent.com/artefactual-labs/amflow/main/public/swagger/swagger.yaml.
 
-[0]: https://github.com/sevein/amflow/releases/latest
+[0]: https://github.com/artefactual-labs/amflow/releases/latest
 [1]: https://hub.docker.com/r/sevein/amflow/tags
