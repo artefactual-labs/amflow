@@ -2,9 +2,15 @@
 
 ## Installation
 
+### Local installation
+
 Download the [latest binary][0] and simply run it, e.g.:
 
     $ ./amflow help
+
+amflow needs `dot` installed (part of [GraphViz](https://www.graphviz.org/)).
+
+### Via Docker
 
 You can also use the [Docker image][1], e.g.:
 
