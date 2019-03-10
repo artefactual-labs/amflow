@@ -27,7 +27,7 @@ goagen:
 	@goagen app     -d github.com/artefactual-labs/amflow/design -o internal/api
 	@goagen swagger -d github.com/artefactual-labs/amflow/design -o public
 	@goagen schema  -d github.com/artefactual-labs/amflow/design -o public
-	@goagen js      -d github.com/artefactual-labs/amflow/design -o ui/js/client --noexample
+	@goagen js      -d github.com/artefactual-labs/amflow/design -o web/js/client --noexample
 
 .PHONY: clean
 clean:

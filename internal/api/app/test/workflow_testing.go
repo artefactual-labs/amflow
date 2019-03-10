@@ -4,8 +4,8 @@
 //
 // Command:
 // $ goagen
-// --design=github.com/sevein/amflow/design
-// --out=/home/jesus/Projects/amflow/internal/api
+// --design=github.com/artefactual-labs/amflow/design
+// --out=/Users/jesus/amflow/internal/api
 // --version=v1.3.1
 
 package test
@@ -14,9 +14,9 @@ import (
 	"bytes"
 	"context"
 	"fmt"
+	"github.com/artefactual-labs/amflow/internal/api/app"
 	"github.com/goadesign/goa"
 	"github.com/goadesign/goa/goatest"
-	"github.com/artefactual-labs/amflow/internal/api/app"
 	"io"
 	"log"
 	"net/http"
