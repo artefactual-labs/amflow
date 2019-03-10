@@ -9,7 +9,7 @@ var _ = API("amflow", func() {
 	Description("Archivematica workflow editor")
 	Docs(func() {
 		Description("amflow README")
-		URL("https://github.com/sevein/amflow")
+		URL("https://github.com/artefactual-labs/amflow")
 	})
 	Host("localhost")
 	Scheme("http")

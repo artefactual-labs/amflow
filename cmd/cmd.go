@@ -14,10 +14,10 @@ import (
 	"github.com/spf13/cobra"
 	"go.uber.org/multierr"
 
-	"github.com/sevein/amflow/internal/constants"
-	"github.com/sevein/amflow/internal/graph"
-	"github.com/sevein/amflow/internal/graph/encoding"
-	"github.com/sevein/amflow/internal/version"
+	"github.com/artefactual-labs/amflow/internal/constants"
+	"github.com/artefactual-labs/amflow/internal/graph"
+	"github.com/artefactual-labs/amflow/internal/graph/encoding"
+	"github.com/artefactual-labs/amflow/internal/version"
 )
 
 var (

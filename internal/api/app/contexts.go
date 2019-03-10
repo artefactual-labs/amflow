@@ -4,8 +4,8 @@
 //
 // Command:
 // $ goagen
-// --design=github.com/sevein/amflow/design
-// --out=/home/jesus/Projects/amflow/internal/api
+// --design=github.com/artefactual-labs/amflow/design
+// --out=/Users/jesus/amflow/internal/api
 // --version=v1.3.1
 
 package app

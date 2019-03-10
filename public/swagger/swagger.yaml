@@ -40,7 +40,7 @@ definitions:
     type: object
 externalDocs:
   description: amflow README
-  url: https://github.com/sevein/amflow
+  url: https://github.com/artefactual-labs/amflow
 host: localhost
 info:
   description: Archivematica workflow editor

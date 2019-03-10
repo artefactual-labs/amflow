@@ -7,7 +7,7 @@ import (
 	"github.com/stretchr/testify/require"
 	"gonum.org/v1/gonum/graph/simple"
 
-	amjson "github.com/sevein/amflow/internal/graph/encoding"
+	amjson "github.com/artefactual-labs/amflow/internal/graph/encoding"
 )
 
 func TestWorkflow_SVG(t *testing.T) {

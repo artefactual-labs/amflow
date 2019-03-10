@@ -10,9 +10,9 @@ import (
 	"github.com/gobuffalo/packr/v2"
 	"github.com/sirupsen/logrus"
 
-	"github.com/sevein/amflow/internal/api/app"
-	"github.com/sevein/amflow/internal/api/controllers"
-	"github.com/sevein/amflow/internal/graph"
+	"github.com/artefactual-labs/amflow/internal/api/app"
+	"github.com/artefactual-labs/amflow/internal/api/controllers"
+	"github.com/artefactual-labs/amflow/internal/graph"
 )
 
 func Create(graph *graph.Workflow, logger *logrus.Entry) *goa.Service {

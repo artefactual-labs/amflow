@@ -3,7 +3,7 @@ package graph
 import (
 	"testing"
 
-	amjson "github.com/sevein/amflow/internal/graph/encoding"
+	amjson "github.com/artefactual-labs/amflow/internal/graph/encoding"
 	"gonum.org/v1/gonum/graph/simple"
 )
 

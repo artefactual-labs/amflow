@@ -5,8 +5,8 @@ import (
 
 	"github.com/goadesign/goa"
 
-	"github.com/sevein/amflow/internal/api/app"
-	"github.com/sevein/amflow/internal/graph"
+	"github.com/artefactual-labs/amflow/internal/api/app"
+	"github.com/artefactual-labs/amflow/internal/graph"
 )
 
 // WorkflowController implements the workflow resource.
