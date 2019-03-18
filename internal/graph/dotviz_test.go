@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
+	"gonum.org/v1/gonum/graph"
 	"gonum.org/v1/gonum/graph/simple"
 
 	amjson "github.com/artefactual-labs/amflow/internal/graph/encoding"
@@ -32,4 +33,29 @@ func TestWorkflow_SVG(t *testing.T) {
 	err = xml.Unmarshal(blob, &v)
 	require.NoError(t, err)
 	require.Equal(t, "svg", v.XMLName.Local)
+}
+
+// Test that graph.Copy copies the topology but reuses our nodes/edges.
+// See https://github.com/gonum/gonum/pull/897 for more details.
+func Test_copy(t *testing.T) {
+	// Original graph.
+	src := New(nil)
+	n0 := src.addVertex(&amjson.Link{})
+	n1 := src.addVertex(&amjson.Link{})
+	e0 := src.graph.NewEdge(n0, n1)
+	src.graph.SetEdge(e0)
+
+	// New graph.
+	dst := simple.NewDirectedGraph()
+
+	graph.Copy(dst, src)
+
+	// Confirm that we have access to the same edge in the new graph.
+	// Interface values are comparable. Two interface values are equal if they
+	// have identical dynamic types and equal dynamic values or if both have
+	// value nil.
+	e := dst.Edge(0, 1)
+	if e0 != e {
+		t.Fail()
+	}
 }

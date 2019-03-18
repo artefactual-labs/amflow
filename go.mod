@@ -29,11 +29,12 @@ require (
 	github.com/zach-klippenstein/goregen v0.0.0-20160303162051-795b5e3961ea // indirect
 	go.uber.org/atomic v1.3.2 // indirect
 	go.uber.org/multierr v1.1.0
-	golang.org/x/crypto v0.0.0-20190123085648-057139ce5d2b // indirect
-	golang.org/x/exp v0.0.0-20190125153040-c74c464bbbf2 // indirect
-	golang.org/x/net v0.0.0-20190125091013-d26f9f9a57f3 // indirect
-	golang.org/x/sys v0.0.0-20190124100055-b90733256f2e // indirect
-	golang.org/x/tools v0.0.0-20190125232054-d66bd3c5d5a6 // indirect
-	gonum.org/v1/gonum v0.0.0-20190123113241-dd4cc715c58a
-	gonum.org/v1/netlib v0.0.0-20190119082159-9be13e02fd56 // indirect
+	golang.org/x/crypto v0.0.0-20190313024323-a1f597ede03a // indirect
+	golang.org/x/exp v0.0.0-20190316020145-860388717186 // indirect
+	golang.org/x/mobile v0.0.0-20190318164015-6bd122906c08 // indirect
+	golang.org/x/net v0.0.0-20190313220215-9f648a60d977 // indirect
+	golang.org/x/sys v0.0.0-20190316082340-a2f829d7f35f // indirect
+	golang.org/x/tools v0.0.0-20190318005222-63e6ed9258fa // indirect
+	gonum.org/v1/gonum v0.0.0-20190314102406-9182d211c6c2
+	gonum.org/v1/netlib v0.0.0-20190314102120-fc220b4194ca // indirect
 )

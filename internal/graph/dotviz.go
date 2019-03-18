@@ -6,6 +6,7 @@ import (
 	"os/exec"
 	"strconv"
 
+	"gonum.org/v1/gonum/graph"
 	"gonum.org/v1/gonum/graph/encoding"
 	"gonum.org/v1/gonum/graph/encoding/dot"
 	"gonum.org/v1/gonum/graph/simple"
@@ -30,7 +31,7 @@ var ignoredVertices = map[string]string{
 func (w Workflow) DOT() ([]byte, error) {
 	// Make a copy since we don't want to alter the original graph.
 	n := simple.NewDirectedGraph()
-	gcopy(n, w)
+	graph.Copy(n, w)
 
 	// Add initiator
 	initiator := &initiatorVertex{node: n.NewNode()}
