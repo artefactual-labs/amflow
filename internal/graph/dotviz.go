@@ -184,7 +184,7 @@ func (v VertexWatcheDir) Attributes() []encoding.Attribute {
 	}
 	fillcolor := "yellow"
 	if v.isInitiator() {
-		fillcolor = "green"
+		fillcolor = "darkolivegreen1"
 	}
 	attrs = append(attrs, encoding.Attribute{Key: "fillcolor", Value: fillcolor})
 	return attrs

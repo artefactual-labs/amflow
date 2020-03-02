@@ -50,6 +50,6 @@ func (c *WorkflowController) Show(ctx *app.ShowWorkflowContext) (err error) {
 		ctx.ResponseWriter.WriteHeader(500)
 		return err
 	}
-	ctx.ResponseWriter.Write(blob)
-	return nil
+	_, err = ctx.ResponseWriter.Write(blob)
+	return err
 }
