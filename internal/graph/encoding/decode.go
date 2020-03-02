@@ -44,6 +44,9 @@ type Link struct {
 	FallbackJobStatus string                `json:"fallback_job_status"`
 	FallbackLinkID    string                `json:"fallback_link_id"`
 	Group             I18nField             `json:"group"`
+
+	// It indicates the end of package processing in the workflow.
+	End bool `json:"end"`
 }
 
 func (v Link) ID() string {

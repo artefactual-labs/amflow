@@ -13,7 +13,7 @@ import (
 )
 
 // ignoredVertices includes elements that we don't want to include because they
-// slow down rendering times significantly.
+// slow down rendering significantly.
 var ignoredVertices = map[string]string{
 	"61c316a6-0a50-4f65-8767-1f44b1eeb6dd": "Link - Email fail report",
 	"7d728c39-395f-4892-8193-92f086c0546f": "Link - Email fail report",
@@ -113,12 +113,16 @@ func (v VertexLink) Attributes() []encoding.Attribute {
 	if v.IsHighlighted() {
 		color = "pink"
 	}
+	bgcolor := "white"
+	if v.src.End {
+		bgcolor = "orange"
+	}
 	return []encoding.Attribute{
 		{Key: "shape", Value: "box"},
 		{Key: "color", Value: color},
 		{Key: "margin", Value: "0"},
 		{Key: "label", Value: fmt.Sprintf(`<
-<table border="0" cellborder="1" cellspacing="0">
+<table border="0" cellborder="1" cellspacing="0" bgcolor="%s">
 	<tr><td colspan="2" bgcolor="%s" width="500"><font color="black"><b>%s</b></font></td></tr>
 	<tr><td align="left">Type</td><td align="left">Link</td></tr>
 	<tr><td align="left">ID</td><td align="left">%s</td></tr>
@@ -127,7 +131,7 @@ func (v VertexLink) Attributes() []encoding.Attribute {
 	<tr><td align="left">Model</td><td align="left">%s</td></tr>
 	<tr><td align="left">Execute</td><td align="left">%s</td></tr>
 	<tr><td align="left">Information</td><td align="left">%s</td></tr>
-</table>>`, captionbgcolor,
+</table>>`, bgcolor, captionbgcolor,
 			eschtml(v.src.Description["en"]),
 			eschtml(v.AMID()),
 			eschtml(v.src.Group["en"]),

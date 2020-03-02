@@ -1,3 +1,6 @@
+/*
+Package cmd implements command-line interfaces.
+*/
 package cmd
 
 import (
