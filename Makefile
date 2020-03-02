@@ -1,3 +1,8 @@
+GOPATH=$(shell go env GOPATH)
+GOBIN=$(GOPATH)/bin
+GOCMD=go
+export PATH:=$(GOBIN):$(PATH)
+
 # We don't need make's built-in rules.
 MAKEFLAGS += --no-builtin-rules
 .SUFFIXES:
@@ -11,16 +16,13 @@ help:
 	@echo "  check         check all the things"
 	@echo "  help          this help message"
 
-TOOLS= \
-	github.com/goadesign/goa/goagen \
-	github.com/gobuffalo/packr/v2/packr2
+tools:
+	env GO111MODULE=off go get github.com/gobuffalo/packr/v2/packr2
 
 .PHONY: deps
-deps:
+deps: tools
 	@echo "Downloading modules..."
 	go mod download
-	@echo "Installing tools..."
-	CGO_ENABLED=0 go install $(TOOLS)
 
 .PHONY: goagen
 goagen:

@@ -1,36 +1,34 @@
 project_name: amflow
+
 before:
   hooks:
   - make clean
   - make deps
   - make prebuild
+
 builds:
 - ldflags:
   - -s -w -X github.com/artefactual-labs/amflow/internal/version.version={{.Version}}
   env:
   - CGO_ENABLED=0
   goos:
-  - darwin
-  - windows
   - linux
   goarch:
   - amd64
-archive:
-  name_template: "{{ .ProjectName }}-{{ .Os }}-{{ .Arch }}"
-  format: binary
+  flags:
+  - -trimpath
+
 checksum:
   name_template: "{{ .ProjectName }}-checksums.txt"
-nfpm:
-  formats:
-  - deb
-  dependencies:
-  - graphviz
+
 dockers:
 - goos: linux
   goarch: amd64
   image_templates:
   - "artefactual/amflow:latest"
   - "artefactual/amflow:v{{ .Major }}"
+  - "docker.pkg.github.com/artefactual-labs/amflow/amflow:latest"
+  - "docker.pkg.github.com/artefactual-labs/amflow/amflow:v{{ .Major }}"
   dockerfile: Dockerfile.release
   build_flag_templates:
   - "--label=org.label-schema.schema-version=1.0"

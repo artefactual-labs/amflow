@@ -22,9 +22,10 @@ Serve the latest workflow document found in Archivematica's GitHub repository. I
 
     $ docker run -p 2323:2323 --rm artefactual/amflow:latest edit --latest
 
-## API docs
+It is also possible to point to a local or remote workflow document, e.g.:
 
-See http://petstore.swagger.io/?url=https://raw.githubusercontent.com/artefactual-labs/amflow/main/public/swagger/swagger.yaml.
+    $ docker run -p 2323:2323 --rm artefactual/amflow:latest edit --file=https://raw.githubusercontent.com/artefactual/archivematica/stable/1.10.x/src/MCPServer/lib/assets/workflow.json
+
 
 [0]: https://github.com/artefactual-labs/amflow/releases/latest
 [1]: https://hub.docker.com/r/artefactual/amflow/tags
