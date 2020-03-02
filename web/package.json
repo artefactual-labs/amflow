@@ -14,5 +14,8 @@
   },
   "resolutions": {
     "fsevents": "npm:dummypkg-a@1.0.0"
+  },
+  "dependencies": {
+    "fsevents": "npm:dummypkg-a@1.0.0"
   }
 }
