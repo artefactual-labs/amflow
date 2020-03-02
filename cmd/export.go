@@ -4,12 +4,14 @@ import (
 	"fmt"
 	"io"
 
+	"github.com/artefactual-labs/amflow/internal/graph"
 	"github.com/spf13/cobra"
 )
 
 var (
 	exportFile   string
 	exportFormat string
+	exportFull   bool
 )
 
 func newCmdExport(out io.Writer) *cobra.Command {
@@ -29,6 +31,7 @@ Usage example:
 	}
 	cmd.Flags().StringVarP(&exportFile, "file", "f", "", "Path of JSON-encoded workflow document")
 	cmd.Flags().StringVarP(&exportFormat, "format", "", "dot", "Format of the export")
+	cmd.Flags().BoolVarP(&exportFull, "full", "", false, "Include the full graph (slower)")
 	return cmd
 }
 
@@ -41,7 +44,7 @@ func export(out io.Writer) error {
 	checkDot()
 
 	// Print it out.
-	blob, err := w.DOT()
+	blob, err := w.DOT(&graph.VizOpts{Full: exportFull})
 	if err != nil {
 		return err
 	}

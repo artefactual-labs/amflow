@@ -24,7 +24,7 @@ func TestWorkflow_SVG(t *testing.T) {
 	w.graph.SetEdge(simple.Edge{F: n0, T: n1})
 	w.graph.SetEdge(simple.Edge{F: n2, T: n3})
 
-	blob, err := w.SVG()
+	blob, err := w.SVG(&VizOpts{})
 	require.NoError(t, err)
 
 	var v struct {

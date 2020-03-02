@@ -117,10 +117,62 @@ func (w Workflow) Check() error {
 		}
 	}
 	for _, item := range w.links() {
-		t := w.To(item.ID())
-		if t.Len() == 0 {
+		// Number of ascendants and descendants.
+		fl := w.To(item.ID()).Len()
+		tl := w.From(item.ID()).Len()
+
+		// Orphan link!
+		if fl == 0 {
 			err = multierr.Append(err, fmt.Errorf("[%s] link is not referenced", item.AMID()))
 		}
+
+		// Do we have a transition to a watchedDir?
+		var refsWatchedDir bool
+		iter := w.From(item.ID())
+		for iter.Next() {
+			_, ok := iter.Node().(*VertexWatcheDir)
+			if ok {
+				refsWatchedDir = true
+				break
+			}
+		}
+
+		// Look for terminal links that look like false positives.
+		if item.src.End {
+			switch {
+			case tl == 0:
+				// Terminal link that actually terminates, nothing wrong here.
+			case tl >= 1:
+
+				// Okay to terminal links that only points to a WD, assuming
+				// it's end of package but hard to tell from here.
+				if tl == 1 && refsWatchedDir {
+					continue
+				}
+
+				// We have a few terminal links that either:
+				// - Refer to a watched directory *and* to another link.
+				// - Does not refer to a watched directory *but* refers to a link.
+				//
+				// In both cases, they're really only terminal if the don't
+				// continue after execution. E.g. "Move transfer to backlog" is
+				// ending when the execution succeeds but it continues otherwise.
+				//
+				// MCPServer will not mark the package as completed in case of
+				// false positives, but it will low a warning.
+				err = multierr.Append(err, fmt.Errorf("[%s] link is terminal but has alternative paths [children=%d] [refsWD=%t]", item.AMID(), tl, refsWatchedDir))
+			}
+		}
+
+		// Look for unidentified terminal links (false negatives).
+		if !item.src.End && tl == 0 {
+			err = multierr.Append(err, fmt.Errorf("[%s] link should be terminal", item.AMID()))
+		}
+
+		// TODO: This could guess a false negative but it's most likely the end
+		// of a chain transitioning to a new chain within the same package. Not
+		// something we necessarily need to convert into a terminal link.
+		// if !item.src.End && tl == 1 && refsWatchedDir { err = multierr.Append(err, fmt.Errorf("[%s] link should be terminal", item.AMID())) }
 	}
 	return err
 }

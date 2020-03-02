@@ -42,7 +42,7 @@ func (c *WorkflowController) Show(ctx *app.ShowWorkflowContext) (err error) {
 	start := time.Now()
 	// Avoid generation if it's already cached.
 	if blob == nil {
-		blob, err = c.graph.SVG()
+		blob, err = c.graph.SVG(&graph.VizOpts{})
 	}
 	elapsed := time.Since(start)
 	c.Service.LogInfo("svg", "elapsed", elapsed)
