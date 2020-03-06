@@ -68,5 +68,11 @@ Check the integrity of the workflow, e.g.:
 
   It can take a couple of minutes! `-Tlang` determines the output format, `-Tx11` opens an interactive graph viewer based on Xlib canvas supporting panning and zooming functions.
 
+  GraphViz supports several [output formats](https://www.graphviz.org/doc/info/output.html), e.g. the following command generates a SVG document:
+
+  ```amflow export --full --format=dot | dot -v -Tsvg 2>/dev/null > ~/graph.svg```
+
+  Note that `stderr` (logging) needs to be ignored.
+
 [0]: https://github.com/artefactual-labs/amflow/releases/latest
 [1]: https://hub.docker.com/r/artefactual/amflow/tags
