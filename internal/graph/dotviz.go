@@ -26,13 +26,15 @@ var ignoredVertices = map[string]string{
 	"828528c2-2eb9-4514-b5ca-dfd1f7cb5b8c": "  -> (descendant)",
 
 	// Low cardinality.
-	"19c94543-14cb-4158-986b-1d2b55723cd8": "Link - Cleanup rejected SIP",
-	"3467d003-1603-49e3-b085-e58aa693afed": " -> (descendant)",
+	// "a6ed697e-6189-4b4e-9f80-29209abc7937": "Chain - Reject SIP",
+	// "169a5448-c756-4705-a920-737de6b8d595": "Chain - Reject",
+	// "19c94543-14cb-4158-986b-1d2b55723cd8": " -> (descendant) Cleanup rejected SIP",
+	// "3467d003-1603-49e3-b085-e58aa693afed": "  -> (descendant)",
 
 	// Low cardinality.
-	"1b04ec43-055c-43b7-9543-bd03c6a778ba": "Chain - Reject transfer",
-	"ae5cdd0d-2f81-4935-a380-d5c6f1337d93": " -> (descendant)",
-	"333532b9-b7c2-4478-9415-28a3056d58df": "  -> (descendant)",
+	// "1b04ec43-055c-43b7-9543-bd03c6a778ba": "Chain - Reject transfer",
+	// "ae5cdd0d-2f81-4935-a380-d5c6f1337d93": " -> (descendant)",
+	// "333532b9-b7c2-4478-9415-28a3056d58df": "  -> (descendant)",
 }
 
 type VizOpts struct {
