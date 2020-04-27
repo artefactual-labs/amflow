@@ -312,7 +312,9 @@ func (w *Workflow) load(data *amjson.WorkflowData) {
 						}
 					}
 				} else if vertexSrc.src.Description["en"] == "Create SIP from transfer objects" || vertexSrc.src.Description["en"] == "Create SIPs from TRIM transfer containers" {
-					w.graph.SetEdge(newVirtualMovingDirBridge(vertexSrc, w.VertexByAMID("/system/autoProcessSIP")))
+					if transitionDir := w.VertexByAMID("/system/autoProcessSIP"); transitionDir != nil {
+						w.graph.SetEdge(newVirtualMovingDirBridge(vertexSrc, w.VertexByAMID("/system/autoProcessSIP")))
+					}
 				}
 			}
 		}
