@@ -112,7 +112,7 @@ func (w Workflow) Check() error {
 		if f.Len() == 0 {
 			err = multierr.Append(err, fmt.Errorf("[%s] chain does not make references", item.AMID()))
 		}
-		if t.Len() == 0 {
+		if t.Len() == 0 && !item.src.Start {
 			err = multierr.Append(err, fmt.Errorf("[%s] chain is not referenced", item.AMID()))
 		}
 	}
