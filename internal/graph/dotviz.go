@@ -50,11 +50,20 @@ func (w Workflow) DOT(opts *VizOpts) ([]byte, error) {
 	// Add initiator
 	initiator := &initiatorVertex{node: n.NewNode()}
 	n.AddNode(initiator)
-	for _, wdir := range w.watchedDirs() {
-		if !wdir.isInitiator() {
-			continue
+	var foundInitiator bool
+	for _, ch := range w.chains() {
+		if ch.src.Start {
+			foundInitiator = true
+			n.SetEdge(n.NewEdge(initiator, ch))
 		}
-		n.SetEdge(n.NewEdge(initiator, wdir))
+	}
+	if !foundInitiator {
+		for _, wdir := range w.watchedDirs() {
+			if !wdir.isInitiator() {
+				continue
+			}
+			n.SetEdge(n.NewEdge(initiator, wdir))
+		}
 	}
 
 	// Remove ignored vertices.

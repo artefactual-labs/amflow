@@ -1,8 +1,6 @@
 package graph
 
 import (
-	"fmt"
-
 	"gonum.org/v1/gonum/graph"
 	"gonum.org/v1/gonum/graph/encoding"
 	"gonum.org/v1/gonum/graph/encoding/dot"
@@ -17,7 +15,7 @@ func (v initiatorVertex) ID() int64 {
 }
 
 func (v initiatorVertex) DOTID() string {
-	return fmt.Sprintf(`START`)
+	return "START"
 }
 
 func (v initiatorVertex) Attributes() []encoding.Attribute {

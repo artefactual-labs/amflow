@@ -28,6 +28,9 @@ type Chain struct {
 	id          string
 	Description I18nField `json:"description"`
 	LinkID      string    `json:"link_id"`
+
+	// It indicates the start of processing in the workflow.
+	Start bool `json:"start"`
 }
 
 func (v Chain) ID() string {
