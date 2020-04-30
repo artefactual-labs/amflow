@@ -1,6 +1,7 @@
 /dist
 /public/web
 /web/.cache
+/web/.parcel-cache
 /web/node_modules
 
 *.swp
