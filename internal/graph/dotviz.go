@@ -142,10 +142,17 @@ func (v VertexLink) Attributes() []encoding.Attribute {
 	if v.src.End {
 		bgcolor = "orange"
 	}
+	var args string
+	if v.src.Config.Arguments != "" {
+		args = "Args: " + v.src.Config.Arguments
+	} else {
+		args = "[empty]"
+	}
 	return []encoding.Attribute{
 		{Key: "shape", Value: "box"},
 		{Key: "color", Value: color},
 		{Key: "margin", Value: "0"},
+		{Key: "tooltip", Value: args},
 		{Key: "label", Value: fmt.Sprintf(`<
 <table border="0" cellborder="1" cellspacing="0" bgcolor="%s">
 	<tr><td colspan="2" bgcolor="%s" width="500"><font color="black"><b>%s</b></font></td></tr>
