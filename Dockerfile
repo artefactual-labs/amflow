@@ -4,7 +4,7 @@ COPY ./ui ./ui
 RUN yarn --cwd /src/ui install
 RUN yarn --cwd /src/ui build
 
-ARG GO_VERSION=1.14
+ARG GO_VERSION=1.15
 FROM golang:${GO_VERSION}-alpine AS build
 RUN apk add --no-cache ca-certificates git make
 WORKDIR /src
