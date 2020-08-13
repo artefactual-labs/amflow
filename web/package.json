@@ -9,7 +9,7 @@
     "cssnano": "^4.1.8",
     "jquery": "^3.5.0",
     "panzoom": "^9.2.4",
-    "parcel": "^2.0.0-alpha.3.2",
+    "parcel": "^2.0.0-beta.1",
     "requirejs": "^2.3.6"
   },
   "main": "../public/web/index.html"
