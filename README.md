@@ -1,5 +1,7 @@
 # amflow
 
+Archivematica workflow visualization tool.
+
 ## Installation
 
 ### Local installation
@@ -57,22 +59,25 @@ Check the integrity of the workflow, e.g.:
     WARN[0001] Unhealthy workflow warning                    err="[16415d2f-5642-496d-a46d-00028ef6eb0a] link is terminal but has alternative paths [children=2] [refsWD=true]"
     WARN[0001] Unhealthy workflow warning                    err="[abd6d60c-d50f-4660-a189-ac1b34fafe85] link is terminal but has alternative paths [children=1] [refsWD=false]"
 
+#### Export capabilities
+
+Workflow graphs can be exported to [DOT][2], an open graph description language. Various programs can process DOT files. E.g. `dot` (GraphViz) can be used to render the graph in a graphical form. The following example renders the workflow as SVG:
+
+    amflow export --format=dot | dot -v -Tsvg 2>/dev/null > ~/graph.svg
+
+This is another example that uses X11 to open an interactive graph viewer based on Xlib canvas:
+
+    amflow export --format=dot | dot -v -Tx11
+
+By default, amflow hides certain graph nodes to speed up rendering. It is possible to render the full graph using the optional argument `--full`, e.g.:
+
+    amflow export --full --format=dot | dot -v -Tx11
+
 ## Limitations
 
 * Web interface does not provide searching capabilities.
-
-* Web interface hides common links like "Email fail report" in order to speed up the rendering process. Open up `dotviz.go` to know more.
-  A workaround is to export the DOT graph with `amflow export --full --format=dot`, then render it locally with GraphViz. E.g.:
-
-  ```amflow export --full --format=dot | dot -v -Tx11```
-
-  It can take a couple of minutes! `-Tlang` determines the output format, `-Tx11` opens an interactive graph viewer based on Xlib canvas supporting panning and zooming functions.
-
-  GraphViz supports several [output formats](https://www.graphviz.org/doc/info/output.html), e.g. the following command generates a SVG document:
-
-  ```amflow export --full --format=dot | dot -v -Tsvg 2>/dev/null > ~/graph.svg```
-
-  Note that `stderr` (logging) needs to be ignored.
+* Web interface hides common links like "Email fail report" in order to speed up the rendering process. Open up `dotviz.go` to know more. A workaround is to export the DOT graph as described above in this document, using `amflow export --full`.
 
 [0]: https://github.com/artefactual-labs/amflow/releases/latest
 [1]: https://hub.docker.com/r/artefactual/amflow/tags
+[2]: https://en.wikipedia.org/wiki/DOT_(graph_description_language)
