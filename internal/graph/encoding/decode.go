@@ -28,9 +28,6 @@ type Chain struct {
 	id          string
 	Description I18nField `json:"description"`
 	LinkID      string    `json:"link_id"`
-
-	// It indicates the start of processing in the workflow.
-	Start bool `json:"start"`
 }
 
 func (v Chain) ID() string {
@@ -48,8 +45,9 @@ type Link struct {
 	FallbackLinkID    string                `json:"fallback_link_id"`
 	Group             I18nField             `json:"group"`
 
-	// It indicates the end of package processing in the workflow.
-	End bool `json:"end"`
+	// Start and end of the processing workflow.
+	Start bool `json:"start"`
+	End   bool `json:"end"`
 }
 
 func (v Link) ID() string {
@@ -72,7 +70,8 @@ type LinkConfig struct {
 	StdoutFile         string `json:"stdout_file"`
 
 	// MicroServiceChainChoice
-	Choices []string `json:"chain_choices"`
+	ChainChoices []string     `json:"chain_choices"`
+	LinkChoices  []LinkChoice `json:"choices"`
 
 	// TaskConfigSetUnitVariable
 	Variable      string `json:"variable"`
@@ -84,6 +83,11 @@ type LinkConfig struct {
 
 	// TaskConfigUnitVariableLinkPull
 	// @ Variable, ChainID
+}
+
+type LinkChoice struct {
+	Value  bool   `json:"value"`
+	LinkID string `json:"link_id"`
 }
 
 type LinkConfigReplacement struct {

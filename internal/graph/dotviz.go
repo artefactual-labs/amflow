@@ -51,10 +51,10 @@ func (w Workflow) DOT(opts *VizOpts) ([]byte, error) {
 	initiator := &initiatorVertex{node: n.NewNode()}
 	n.AddNode(initiator)
 	var foundInitiator bool
-	for _, ch := range w.chains() {
-		if ch.src.Start {
+	for _, ln := range w.links() {
+		if ln.src.Start {
 			foundInitiator = true
-			n.SetEdge(n.NewEdge(initiator, ch))
+			n.SetEdge(n.NewEdge(initiator, ln))
 		}
 	}
 	if !foundInitiator {
@@ -175,8 +175,10 @@ func (v VertexLink) Attributes() []encoding.Attribute {
 	}
 }
 
-var _ dot.Node = VertexLink{}
-var _ encoding.Attributer = VertexLink{}
+var (
+	_ dot.Node            = VertexLink{}
+	_ encoding.Attributer = VertexLink{}
+)
 
 func (v VertexChainLink) DOTID() string {
 	return strconv.Itoa(int(v.ID()))
@@ -199,8 +201,10 @@ func (v VertexChainLink) Attributes() []encoding.Attribute {
 	}
 }
 
-var _ dot.Node = VertexChainLink{}
-var _ encoding.Attributer = VertexChainLink{}
+var (
+	_ dot.Node            = VertexChainLink{}
+	_ encoding.Attributer = VertexChainLink{}
+)
 
 func (v VertexWatcheDir) DOTID() string {
 	return strconv.Itoa(int(v.ID()))
@@ -222,8 +226,10 @@ func (v VertexWatcheDir) Attributes() []encoding.Attribute {
 	return attrs
 }
 
-var _ dot.Node = VertexWatcheDir{}
-var _ encoding.Attributer = VertexWatcheDir{}
+var (
+	_ dot.Node            = VertexWatcheDir{}
+	_ encoding.Attributer = VertexWatcheDir{}
+)
 
 type attributer []encoding.Attribute
 

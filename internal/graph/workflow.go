@@ -112,7 +112,7 @@ func (w Workflow) Check() error {
 		if f.Len() == 0 {
 			err = multierr.Append(err, fmt.Errorf("[%s] chain does not make references", item.AMID()))
 		}
-		if t.Len() == 0 && !item.src.Start {
+		if t.Len() == 0 {
 			err = multierr.Append(err, fmt.Errorf("[%s] chain is not referenced", item.AMID()))
 		}
 	}
@@ -122,7 +122,7 @@ func (w Workflow) Check() error {
 		tl := w.From(item.ID()).Len()
 
 		// Orphan link!
-		if fl == 0 {
+		if fl == 0 && !item.src.Start {
 			err = multierr.Append(err, fmt.Errorf("[%s] link is not referenced", item.AMID()))
 		}
 
@@ -275,11 +275,19 @@ func (w *Workflow) load(data *amjson.WorkflowData) {
 		}
 
 		switch {
-		case vertexSrc.src.Config.Model == "MicroServiceChainChoice" && len(vertexSrc.src.Config.Choices) > 0:
+		case vertexSrc.src.Config.Model == "MicroServiceChainChoice" && len(vertexSrc.src.Config.ChainChoices) > 0:
 			{
-				for _, id := range vertexSrc.src.Config.Choices {
+				for _, id := range vertexSrc.src.Config.ChainChoices {
 					if vertexDst, ok := _chs[id]; ok {
 						w.graph.SetEdge(newChainChoiceEdge(vertexSrc, vertexDst))
+					}
+				}
+			}
+		case vertexSrc.src.Config.Manager == "linkTaskManagerChoice":
+			if len(vertexSrc.src.Config.LinkChoices) > 0 {
+				for _, linkChoice := range vertexSrc.src.Config.LinkChoices {
+					if vertexDst, ok := _lns[linkChoice.LinkID]; ok {
+						w.graph.SetEdge(newLinkChoiceEdge(vertexSrc, vertexDst))
 					}
 				}
 			}

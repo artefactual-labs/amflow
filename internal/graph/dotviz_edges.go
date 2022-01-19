@@ -80,6 +80,23 @@ func (e chainChoiceEdge) Attributes() []encoding.Attribute {
 	}
 }
 
+type linkChoiceEdge struct {
+	simple.Edge
+}
+
+func newLinkChoiceEdge(f graph.Node, t graph.Node) *linkChoiceEdge {
+	return &linkChoiceEdge{
+		Edge: simple.Edge{F: f, T: t},
+	}
+}
+
+func (e linkChoiceEdge) Attributes() []encoding.Attribute {
+	chain := e.Edge.T.(*VertexLink)
+	return []encoding.Attribute{
+		{Key: "label", Value: esc(chain.src.Description["en"])},
+	}
+}
+
 var _ encoding.Attributer = chainChoiceEdge{}
 
 type virtualMovingDirEdge struct {
