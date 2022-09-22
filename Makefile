@@ -17,7 +17,7 @@ help:
 	@echo "  help          this help message"
 
 tools:
-	env GO111MODULE=off go get github.com/gobuffalo/packr/v2/packr2
+	env GO111MODULE=off go get github.com/gobuffalo/packr/packr2
 
 .PHONY: deps
 deps: tools
