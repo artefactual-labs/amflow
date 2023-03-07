@@ -6,8 +6,9 @@ require (
 	github.com/armon/go-metrics v0.0.0-20180917152333-f0300d1749da // indirect
 	github.com/dimfeld/httppath v0.0.0-20170720192232-ee938bf73598 // indirect
 	github.com/dimfeld/httptreemux v5.0.1+incompatible // indirect
-	github.com/goadesign/goa v1.0.1-0.20181221201017-4a2fb392efda
+	github.com/goadesign/goa v1.4.3
 	github.com/gobuffalo/packr/v2 v2.7.1
+	github.com/gofrs/uuid v4.4.0+incompatible // indirect
 	github.com/google/gxui v0.0.0-20151028112939-f85e0a97b3a4 // indirect
 	github.com/gopherjs/gopherjs v0.0.0-20181103185306-d547d1d9531e // indirect
 	github.com/hashicorp/go-immutable-radix v1.0.0 // indirect
@@ -20,7 +21,6 @@ require (
 	github.com/onsi/gomega v1.4.3 // indirect
 	github.com/pascaldekloe/goe v0.0.0-20180627143212-57f6aae5913c // indirect
 	github.com/pkg/errors v0.9.1
-	github.com/satori/go.uuid v1.2.1-0.20181028125025-b2ce2384e17b // indirect
 	github.com/sirupsen/logrus v1.4.2
 	github.com/smartystreets/assertions v0.0.0-20190116191733-b6c0e53d7304 // indirect
 	github.com/smartystreets/goconvey v0.0.0-20181108003508-044398e4856c // indirect
