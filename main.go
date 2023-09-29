@@ -1,5 +1,3 @@
-//go:generate env GO111MODULE=on packr2
-
 package main
 
 import (

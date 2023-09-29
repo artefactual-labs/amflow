@@ -1,7 +1,7 @@
 package graph
 
 import (
-	"io/ioutil"
+	"os"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -11,7 +11,7 @@ import (
 )
 
 func populate(t *testing.T) *Workflow {
-	bytes, _ := ioutil.ReadFile("./schema/example.json")
+	bytes, _ := os.ReadFile("./schema/example.json")
 	data, err := amjson.LoadWorkflowData(bytes)
 	if err != nil && t != nil {
 		t.Fatal(err)

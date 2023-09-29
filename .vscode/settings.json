@@ -4,8 +4,6 @@
         "dist": true,
         "public/assets": true,
         "web/.cache": true,
-        "web/node_modules": true,
-        "packrd": true,
-        "**/*-packr.go": true
+        "web/node_modules": true
     }
 }

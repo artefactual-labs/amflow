@@ -1,10 +1,10 @@
 package graph
 
 import (
+	_ "embed"
 	"fmt"
 	"strings"
 
-	"github.com/gobuffalo/packr/v2"
 	"go.uber.org/multierr"
 	"gonum.org/v1/gonum/graph"
 	"gonum.org/v1/gonum/graph/simple"
@@ -13,7 +13,8 @@ import (
 	amjson "github.com/artefactual-labs/amflow/internal/graph/encoding"
 )
 
-var WorkflowSchemaBox = packr.New("workflow", "./schema")
+//go:embed schema/example.json
+var WorkflowSample []byte
 
 // Workflow is a sequence of operations in Archivematica.
 //

@@ -22,7 +22,7 @@ define(['axios'] , function (axios) {
   // Add link
   // path is the request path, the format is "/workflow/:workflowID/links"
   // config is an optional object to be merged into the config built by the function prior to making the request.
-  // The content of the config object is described here: https://github.com/axios/axios#request-config
+  // The content of the config object is described here: https://github.com/mzabriskie/axios#request-api
   // This function returns a promise which raises an error if the HTTP response is a 4xx or 5xx.
   client.addLinkWorkflow = function (path, config) {
     var cfg = {
@@ -40,7 +40,7 @@ define(['axios'] , function (axios) {
   // Delete link
   // path is the request path, the format is "/workflow/:workflowID/links/:linkID"
   // config is an optional object to be merged into the config built by the function prior to making the request.
-  // The content of the config object is described here: https://github.com/axios/axios#request-config
+  // The content of the config object is described here: https://github.com/mzabriskie/axios#request-api
   // This function returns a promise which raises an error if the HTTP response is a 4xx or 5xx.
   client.deleteLinkWorkflow = function (path, config) {
     var cfg = {
@@ -58,7 +58,7 @@ define(['axios'] , function (axios) {
   // Move link
   // path is the request path, the format is "/workflow/:workflowID/links/:linkID"
   // config is an optional object to be merged into the config built by the function prior to making the request.
-  // The content of the config object is described here: https://github.com/axios/axios#request-config
+  // The content of the config object is described here: https://github.com/mzabriskie/axios#request-api
   // This function returns a promise which raises an error if the HTTP response is a 4xx or 5xx.
   client.moveLinkWorkflow = function (path, config) {
     var cfg = {
@@ -76,7 +76,7 @@ define(['axios'] , function (axios) {
   // Read workflow
   // path is the request path, the format is "/workflow/:workflowID"
   // config is an optional object to be merged into the config built by the function prior to making the request.
-  // The content of the config object is described here: https://github.com/axios/axios#request-config
+  // The content of the config object is described here: https://github.com/mzabriskie/axios#request-api
   // This function returns a promise which raises an error if the HTTP response is a 4xx or 5xx.
   client.showWorkflow = function (path, config) {
     var cfg = {

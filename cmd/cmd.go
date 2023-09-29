@@ -6,7 +6,6 @@ package cmd
 import (
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"net/url"
 	"os"
@@ -17,14 +16,14 @@ import (
 	"github.com/spf13/cobra"
 	"go.uber.org/multierr"
 
-	"github.com/artefactual-labs/amflow/internal/constants"
 	"github.com/artefactual-labs/amflow/internal/graph"
 	"github.com/artefactual-labs/amflow/internal/graph/encoding"
 	"github.com/artefactual-labs/amflow/internal/version"
 )
 
 var (
-	v string
+	v               string
+	defaultLogLevel = logrus.InfoLevel
 )
 
 var rootCmd = &cobra.Command{
@@ -43,7 +42,7 @@ func command(out, err io.Writer) *cobra.Command {
 			return err
 		}
 		rootCmd.SilenceUsage = true
-		logrus.Infof("amflow %+s", version.Get())
+		logrus.Infof("amflow %+s", version.Version())
 		return nil
 	}
 
@@ -54,7 +53,7 @@ func command(out, err io.Writer) *cobra.Command {
 	rootCmd.AddCommand(newCmdSearch(out))
 	rootCmd.AddCommand(newCmdCheck(out))
 
-	rootCmd.PersistentFlags().StringVarP(&v, "verbosity", "v", constants.DefaultLogLevel.String(), "Log level (debug, info, warn, error, fatal, panic")
+	rootCmd.PersistentFlags().StringVarP(&v, "verbosity", "v", defaultLogLevel.String(), "Log level (debug, info, warn, error, fatal, panic")
 
 	return rootCmd
 }
@@ -79,13 +78,13 @@ func load(file string) (*graph.Workflow, error) {
 	// Load workflow bytes.
 	if file == "" {
 		logrus.WithFields(logrus.Fields{"mode": "embedded"}).Info("Loading workfow")
-		bytes, err = graph.WorkflowSchemaBox.Find("example.json")
+		bytes = graph.WorkflowSample
 	} else if isURL(file) {
 		logrus.WithFields(logrus.Fields{"mode": "file", "source": file}).Info("Downloading workfow")
 		bytes, err = downloadRemote(file)
 	} else {
 		logrus.WithFields(logrus.Fields{"mode": "file", "source": file}).Info("Loading workfow")
-		bytes, err = ioutil.ReadFile(file)
+		bytes, err = os.ReadFile(file)
 	}
 	if err != nil {
 		return nil, errors.WithMessage(err, "Workflow could not be retrieved")
@@ -134,7 +133,7 @@ func downloadRemote(addr string) ([]byte, error) {
 		return nil, fmt.Errorf("remote server returned and unexpected response with status code: %d", resp.StatusCode)
 	}
 	defer resp.Body.Close()
-	bytes, err := ioutil.ReadAll(resp.Body)
+	bytes, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, errors.WithMessage(err, "remote resource could not be loaded")
 	}
