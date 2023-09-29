@@ -2,7 +2,7 @@ package version
 
 var version string
 
-func Get() string {
+func Version() string {
 	if version == "" {
 		version = "(dev)"
 	}

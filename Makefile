@@ -16,9 +16,6 @@ help:
 	@echo "  check         check all the things"
 	@echo "  help          this help message"
 
-tools:
-	env GO111MODULE=off go get github.com/gobuffalo/packr/packr2
-
 .PHONY: deps
 deps: tools
 	@echo "Downloading modules..."
@@ -27,28 +24,19 @@ deps: tools
 .PHONY: goagen
 goagen:
 	@goagen app     -d github.com/artefactual-labs/amflow/design -o internal/api
-	@goagen swagger -d github.com/artefactual-labs/amflow/design -o public
-	@goagen schema  -d github.com/artefactual-labs/amflow/design -o public
 	@goagen js      -d github.com/artefactual-labs/amflow/design -o web/js/client --noexample
 
 .PHONY: clean
 clean:
 	git clean -f -d -x
 
-.PHONY: prebuild
-prebuild: frontend generate
-
 .PHONY: build
-build: prebuild
+build:
 	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 GOFLAGS=-ldflags=-w \
 	  go build \
 	    -o dist/amflow \
 	    -ldflags="-s -X github.com/artefactual-labs/amflow/internal/version.version=try" \
 	      github.com/artefactual-labs/amflow
-
-.PHONY: generate
-generate:
-	go generate
 
 .PHONY: frontend
 frontend:

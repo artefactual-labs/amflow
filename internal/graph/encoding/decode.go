@@ -61,13 +61,12 @@ type LinkConfig struct {
 	Model   string `json:"@model"`
 
 	// StandardTaskConfig
-	Arguments          string `json:"arguments"`
-	Execute            string `json:"execute"`
-	FilterFileEnd      string `json:"filter_file_end"`
-	FilterSubdir       string `json:"filter_subdir"`
-	RequiresOutputLock bool   `json:"requires_output_lock"`
-	StderrFile         string `json:"stderr_file"`
-	StdoutFile         string `json:"stdout_file"`
+	Arguments     string `json:"arguments"`
+	Execute       string `json:"execute"`
+	FilterFileEnd string `json:"filter_file_end"`
+	FilterSubdir  string `json:"filter_subdir"`
+	StderrFile    string `json:"stderr_file"`
+	StdoutFile    string `json:"stdout_file"`
 
 	// MicroServiceChainChoice
 	ChainChoices []string     `json:"chain_choices"`

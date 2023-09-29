@@ -50,6 +50,7 @@ func edit(out io.Writer) error {
 	}
 	defer ln.Close()
 	logger := logrus.WithField("subsystem", "api")
+	logger.WithField("port", ln.Addr()).Info("Staring API server")
 	svc := api.Create(w, logger)
 	if err := svc.Serve(ln); err != nil {
 		svc.LogError("startup", "err", err)

@@ -1,5 +1,8 @@
 # This is used by GoReleaser.
-FROM alpine:3.11 AS final
+FROM alpine:3.18 AS final
 RUN apk --no-cache add ca-certificates graphviz
 COPY amflow /
+RUN addgroup -S amflow
+RUN adduser -S amflow -G amflow
+USER amflow
 ENTRYPOINT ["/amflow"]

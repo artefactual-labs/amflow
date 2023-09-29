@@ -3,8 +3,7 @@ project_name: amflow
 before:
   hooks:
   - make clean
-  - make deps
-  - make prebuild
+  - make frontend
 
 builds:
 - ldflags:
@@ -24,13 +23,24 @@ checksum:
 dockers:
 - goos: linux
   goarch: amd64
+  dockerfile: Dockerfile.release
   image_templates:
   - "artefactual/amflow:latest"
   - "artefactual/amflow:v{{ .Major }}"
-  - "docker.pkg.github.com/artefactual-labs/amflow/amflow:latest"
-  - "docker.pkg.github.com/artefactual-labs/amflow/amflow:v{{ .Major }}"
-  dockerfile: Dockerfile.release
+  - "artefactual/amflow:{{ .Tag }}"
+  - "ghcr.io/artefactual-labs/amflow/amflow:latest"
+  - "ghcr.io/artefactual-labs/amflow/amflow:v{{ .Major }}"
+  - "ghcr.io/artefactual-labs/amflow/amflow:{{ .Tag }}"
   build_flag_templates:
-  - "--label=org.label-schema.schema-version=1.0"
-  - "--label=org.label-schema.version={{.Version}}"
-  - "--label=org.label-schema.name={{.ProjectName}}"
+  - "--pull"
+  - "--platform=linux/amd64"
+  - "--label=org.opencontainers.image.title={{.ProjectName}}"
+  - "--label=org.opencontainers.image.vendor=Artefactual Systems Inc."
+  - "--label=org.opencontainers.image.description=amflow {{.Tag}}"
+  - "--label=org.opencontainers.image.url=https://github.com/artefactual-labs/amflow"
+  - "--label=org.opencontainers.image.documentation=https://github.com/artefactual-labs/amflow/blob/main/README.md"
+  - "--label=org.opencontainers.image.source=https://github.com/artefactual-labs/amflow"
+  - "--label=org.opencontainers.image.licenses=Apache-2.0"
+  - "--label=org.opencontainers.image.version={{.Version}}"
+  - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+  - "--label=org.opencontainers.image.created={{.Date}}"

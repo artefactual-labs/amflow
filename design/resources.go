@@ -55,17 +55,9 @@ var _ = Resource("workflow", func() {
 	})
 })
 
-var _ = Resource("swagger", func() {
-	Files("/swagger/*filepath", "public/swagger/")
-})
-
-var _ = Resource("schema", func() {
-	Files("/schema/*filepath", "public/schema/")
-})
-
 var _ = Resource("web", func() {
 	Origin("*", func() {
 		Methods("GET, OPTIONS")
 	})
-	Files("/*filepath", "public/web/")
+	Files("/*filepath", "web/")
 })

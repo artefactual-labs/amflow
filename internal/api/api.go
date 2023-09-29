@@ -1,18 +1,19 @@
 package api
 
 import (
+	"io/fs"
 	"net/http"
 	"time"
 
 	"github.com/goadesign/goa"
 	logadapter "github.com/goadesign/goa/logging/logrus"
 	"github.com/goadesign/goa/middleware"
-	"github.com/gobuffalo/packr/v2"
 	"github.com/sirupsen/logrus"
 
 	"github.com/artefactual-labs/amflow/internal/api/app"
 	"github.com/artefactual-labs/amflow/internal/api/controllers"
 	"github.com/artefactual-labs/amflow/internal/graph"
+	"github.com/artefactual-labs/amflow/public"
 )
 
 func Create(graph *graph.Workflow, logger *logrus.Entry) *goa.Service {
@@ -27,26 +28,14 @@ func Create(graph *graph.Workflow, logger *logrus.Entry) *goa.Service {
 	service.Server.WriteTimeout = 10 * time.Second
 
 	// Workflow controller.
-	app.MountWorkflowController(service, controllers.NewWorkflow(service, graph))
-
-	// Schema controller.
-	schemaCtrl := controllers.NewSchemaController(service)
-	schemaCtrl.FileSystem = func(dir string) http.FileSystem {
-		return packr.New("schema", "../../public/schema")
-	}
-	app.MountSchemaController(service, schemaCtrl)
-
-	// Swagger controller.
-	swaggerCtrl := controllers.NewSwaggerController(service)
-	swaggerCtrl.FileSystem = func(dir string) http.FileSystem {
-		return packr.New("swagger", "../../public/swagger")
-	}
-	app.MountSwaggerController(service, swaggerCtrl)
+	wfCtrl := controllers.NewWorkflow(service, graph)
+	app.MountWorkflowController(service, wfCtrl)
 
 	// Web controller.
 	webCtrl := controllers.NewSwaggerController(service)
 	webCtrl.FileSystem = func(dir string) http.FileSystem {
-		return packr.New("assets", "../../public/web")
+		assetsDir, _ := fs.Sub(public.Assets, "web")
+		return http.FS(assetsDir)
 	}
 	app.MountWebController(service, webCtrl)
 
