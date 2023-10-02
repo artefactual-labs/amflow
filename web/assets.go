@@ -1,8 +1,8 @@
-package public
+package web
 
 import (
 	"embed"
 )
 
-//go:embed web/*
+//go:embed dist/*
 var Assets embed.FS

@@ -59,5 +59,5 @@ var _ = Resource("web", func() {
 	Origin("*", func() {
 		Methods("GET, OPTIONS")
 	})
-	Files("/*filepath", "web/")
+	Files("/*filepath", "dist")
 })

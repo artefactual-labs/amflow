@@ -41,15 +41,15 @@ func MountWebController(service *goa.Service, ctrl WebController) {
 	var h goa.Handler
 	service.Mux.Handle("OPTIONS", "/*filepath", ctrl.MuxHandler("preflight", handleWebOrigin(cors.HandlePreflight()), nil))
 
-	h = ctrl.FileHandler("/*filepath", "web/")
+	h = ctrl.FileHandler("/*filepath", "dist")
 	h = handleWebOrigin(h)
 	service.Mux.Handle("GET", "/*filepath", ctrl.MuxHandler("serve", h, nil))
-	service.LogInfo("mount", "ctrl", "Web", "files", "web/", "route", "GET /*filepath")
+	service.LogInfo("mount", "ctrl", "Web", "files", "dist", "route", "GET /*filepath")
 
-	h = ctrl.FileHandler("/", "web/index.html")
+	h = ctrl.FileHandler("/", "dist/index.html")
 	h = handleWebOrigin(h)
 	service.Mux.Handle("GET", "/", ctrl.MuxHandler("serve", h, nil))
-	service.LogInfo("mount", "ctrl", "Web", "files", "web/index.html", "route", "GET /")
+	service.LogInfo("mount", "ctrl", "Web", "files", "dist/index.html", "route", "GET /")
 }
 
 // handleWebOrigin applies the CORS response headers corresponding to the origin.

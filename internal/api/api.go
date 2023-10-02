@@ -3,6 +3,7 @@ package api
 import (
 	"io/fs"
 	"net/http"
+	"path/filepath"
 	"time"
 
 	"github.com/goadesign/goa"
@@ -13,7 +14,7 @@ import (
 	"github.com/artefactual-labs/amflow/internal/api/app"
 	"github.com/artefactual-labs/amflow/internal/api/controllers"
 	"github.com/artefactual-labs/amflow/internal/graph"
-	"github.com/artefactual-labs/amflow/public"
+	"github.com/artefactual-labs/amflow/web"
 )
 
 func Create(graph *graph.Workflow, logger *logrus.Entry) *goa.Service {
@@ -34,7 +35,7 @@ func Create(graph *graph.Workflow, logger *logrus.Entry) *goa.Service {
 	// Web controller.
 	webCtrl := controllers.NewSwaggerController(service)
 	webCtrl.FileSystem = func(dir string) http.FileSystem {
-		assetsDir, _ := fs.Sub(public.Assets, "web")
+		assetsDir, _ := fs.Sub(web.Assets, filepath.Clean(dir))
 		return http.FS(assetsDir)
 	}
 	app.MountWebController(service, webCtrl)
