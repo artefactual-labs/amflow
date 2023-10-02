@@ -2,7 +2,6 @@
 FROM debian:12 AS final
 RUN apt-get update && apt-get install --yes --no-install-recommends graphviz ca-certificates && rm -rf /var/lib/apt/lists/*
 COPY amflow /
-RUN addgroup -S amflow
-RUN adduser -S amflow -G amflow
+RUN useradd --system --create-home --home-dir=/home/amflow --user-group amflow
 USER amflow
 ENTRYPOINT ["/amflow"]
