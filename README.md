@@ -61,17 +61,17 @@ Check the integrity of the workflow, e.g.:
 
 #### Export capabilities
 
-Workflow graphs can be exported to [DOT][2], an open graph description language. Various programs can process DOT files. E.g. `dot` (GraphViz) can be used to render the graph in a graphical form. The following example renders the workflow as SVG:
+Workflow graphs can be exported to SVG or [DOT][2] (an open graph description language). Various programs can process DOT files. E.g. `dot` (GraphViz) can be used to render the graph in a graphical form. The following example uses X11 to open an interactive graph viewer based on Xlib canvas:
 
-    amflow export --format=dot | dot -v -Tsvg 2>/dev/null > ~/graph.svg
-
-This is another example that uses X11 to open an interactive graph viewer based on Xlib canvas:
-
-    amflow export --format=dot | dot -v -Tx11
+    amflow export --format=dot --latest | dot -v -Tx11
 
 By default, amflow hides certain graph nodes to speed up rendering. It is possible to render the full graph using the optional argument `--full`, e.g.:
 
-    amflow export --full --format=dot | dot -v -Tx11
+    amflow export --full --format=dot --latest | dot -v -Tx11
+
+Producing a SVG document can be done similarly:
+
+    amflow export --format=svg --file=workflow.json > /tmp/workflow.svg
 
 ## Limitations
 
