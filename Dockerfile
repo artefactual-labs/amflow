@@ -1,13 +1,13 @@
 FROM node:18 as frontend
 WORKDIR /src
 COPY web /src/web
-RUN yarn --cwd /src/web install --frozen-lockfile
-RUN yarn --cwd /src/web build
+RUN npm --cwd /src/web ci
+RUN npm --cwd /src/web run build
 
 FROM golang:1.21.1-alpine AS build
 RUN apk add --no-cache ca-certificates git make
 WORKDIR /src
-COPY --from=frontend /src/public/web ./public/web
+COPY --from=frontend /src/web/dist ./web/dist
 COPY . .
 RUN make build
 

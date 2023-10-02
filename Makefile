@@ -24,7 +24,10 @@ deps: tools
 .PHONY: goagen
 goagen:
 	@goagen app     -d github.com/artefactual-labs/amflow/design -o internal/api
-	@goagen js      -d github.com/artefactual-labs/amflow/design -o web/js/client --noexample
+	@goagen js      -d github.com/artefactual-labs/amflow/design -o web/ --noexample
+	@mv web/js/client.js web/client.amd.js
+	@rm -rf web/js
+	@cd web && npm run amdtoes6
 
 .PHONY: clean
 clean:

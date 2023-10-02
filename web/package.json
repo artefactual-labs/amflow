@@ -1,16 +1,18 @@
 {
-  "license": "ISC",
+  "name": "web",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "build": "yarn parcel build index.html",
-    "watch": "yarn parcel watch index.html"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "amdtoes6": "amdtoes6 client.amd.js > client.es6.js"
   },
   "devDependencies": {
-    "axios": "^0.19.2",
-    "cssnano": "^4.1.8",
-    "jquery": "^3.5.0",
-    "panzoom": "^9.2.4",
-    "parcel": "^2.0.0-beta.1",
-    "requirejs": "^2.3.6"
-  },
-  "main": "../public/web/index.html"
+    "amd-to-es6": "^0.2.0",
+    "axios": "^1.5.1",
+    "panzoom": "^9.4.3",
+    "vite": "^4.4.5"
+  }
 }
