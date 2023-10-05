@@ -37,14 +37,29 @@ body {
   z-index: 1;
 }
 
-.box {}
+.box, #viewport {
+  width: 100%;
+  display: block;
+}
 
 button {
   padding: 4px;
-  font-size: 11px;
+  font-size: 14px;
   border: 1px solid #333;
   cursor: pointer;
 }
+
+input.search {
+  all: unset;
+  width: 40%;
+  margin-left: 8px;
+  background-color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 4px;
+  border: 1px solid black;
+  font-size: 14px;
+}
+
 
 /* SVG */
 
