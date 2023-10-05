@@ -75,7 +75,6 @@ Producing a SVG document can be done similarly:
 
 ## Limitations
 
-* Web interface does not provide searching capabilities.
 * Web interface hides common links like "Email fail report" in order to speed up the rendering process. Open up `dotviz.go` to know more. A workaround is to export the DOT graph as described above in this document, using `amflow export --full`.
 
 [0]: https://github.com/artefactual-labs/amflow/releases/latest
