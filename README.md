@@ -16,7 +16,7 @@ amflow needs `dot` installed (part of [GraphViz](https://www.graphviz.org/)).
 
 You can also use the [Docker image][1], e.g.:
 
-    $ docker run --rm artefactual/amflow:latest -v warn help
+    $ docker run --pull=always --rm artefactual/amflow:latest -v warn help
     A tool that facilitates workflow editing for Archivematica.
 
     Usage:
@@ -42,15 +42,15 @@ The following examples use Docker so you don't have to install amflow locally.
 
 Serve the latest workflow document found in Archivematica's GitHub repository. It should be accessible at http://127.0.0.1:2323.
 
-    docker run -p 2323:2323 --rm artefactual/amflow:latest edit --latest
+    docker run --pull=always --publish=2323:2323 --rm artefactual/amflow:latest edit --latest
 
 It is also possible to point to a local or remote workflow document, e.g.:
 
-    docker run -p 2323:2323 --rm artefactual/amflow:latest edit --file=https://raw.githubusercontent.com/artefactual/archivematica/stable/1.10.x/src/MCPServer/lib/assets/workflow.json
+    docker run --pull=always --publish=2323:2323 --rm artefactual/amflow:latest edit --file=https://raw.githubusercontent.com/artefactual/archivematica/stable/1.10.x/src/MCPServer/lib/assets/workflow.json
 
 Check the integrity of the workflow, e.g.:
 
-    $ docker run --rm artefactual/amflow:latest check --latest
+    $ docker run --pull=always --rm artefactual/amflow:latest check --latest
     INFO[0000] amflow (dev)
     INFO[0000] Downloading workfow                           mode=file source="https://raw.githubusercontent.com/artefactual/archivematica/qa/1.x/src/MCPServer/lib/assets/workflow.json"
     WARN[0001] Unhealthy workflow warning                    err="[/system/createAIC/] watched directory is not referenced"
