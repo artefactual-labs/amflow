@@ -7,13 +7,15 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "amdtoes6": "amdtoes6 client.amd.js > client.es6.js"
+    "amdtoes6": "amdtoes6 client.amd.js > client.es6.js",
+    "deps": "ncu --format=group --interactive"
   },
   "devDependencies": {
     "amd-to-es6": "^0.2.0",
-    "axios": "^1.5.1",
+    "axios": "^1.6.1",
     "file-saver": "^2.0.5",
+    "npm-check-updates": "^16.14.6",
     "panzoom": "^9.4.3",
-    "vite": "^4.4.5"
+    "vite": "^4.5.0"
   }
 }
