@@ -1,6 +1,6 @@
 module github.com/artefactual-labs/amflow
 
-go 1.21.4
+go 1.21.5
 
 require (
 	github.com/goadesign/goa v1.4.3
