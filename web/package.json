@@ -14,8 +14,8 @@
     "amd-to-es6": "^0.2.0",
     "axios": "^1.6.8",
     "file-saver": "^2.0.5",
-    "npm-check-updates": "^16.14.18",
+    "npm-check-updates": "^16.14.20",
     "panzoom": "^9.4.3",
-    "vite": "^5.2.8"
+    "vite": "^5.2.11"
   }
 }
