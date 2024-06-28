@@ -1,13 +1,13 @@
 module github.com/artefactual-labs/amflow
 
-go 1.22.3
+go 1.22.4
 
 require (
 	github.com/goadesign/goa v1.4.3
 	github.com/olekukonko/tablewriter v0.0.5
 	github.com/pkg/errors v0.9.1
 	github.com/sirupsen/logrus v1.9.3
-	github.com/spf13/cobra v1.8.0
+	github.com/spf13/cobra v1.8.1
 	github.com/stretchr/testify v1.9.0
 	go.uber.org/multierr v1.11.0
 	gonum.org/v1/gonum v0.15.0
