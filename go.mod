@@ -1,6 +1,6 @@
 module github.com/artefactual-labs/amflow
 
-go 1.22.4
+go 1.23.0
 
 require (
 	github.com/goadesign/goa v1.4.3
@@ -10,7 +10,7 @@ require (
 	github.com/spf13/cobra v1.8.1
 	github.com/stretchr/testify v1.9.0
 	go.uber.org/multierr v1.11.0
-	gonum.org/v1/gonum v0.15.0
+	gonum.org/v1/gonum v0.15.1
 )
 
 require (
