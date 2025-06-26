@@ -46,7 +46,7 @@ Serve the latest workflow document found in Archivematica's GitHub repository. I
 
 It is also possible to point to a local or remote workflow document, e.g.:
 
-    docker run --pull=always --publish=2323:2323 --rm artefactual/amflow:latest edit --file=https://raw.githubusercontent.com/artefactual/archivematica/stable/1.10.x/src/MCPServer/lib/assets/workflow.json
+    docker run --pull=always --publish=2323:2323 --rm artefactual/amflow:latest edit --file=https://raw.githubusercontent.com/artefactual/archivematica/stable/1.10.x/src/archivematica/MCPServer/assets/workflow.json
 
 Check the integrity of the workflow, e.g.:
 

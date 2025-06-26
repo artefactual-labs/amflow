@@ -46,7 +46,7 @@ func search(out io.Writer) error {
 	}
 
 	table := tablewriter.NewWriter(out)
-	table.SetHeader([]string{"ID", "Type", "Module", "Description"})
+	table.Header([]string{"ID", "Type", "Module", "Description"})
 	for id := range ints {
 		vertice := w.VertexByID(id)
 		var t, amid, desc, module string

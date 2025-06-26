@@ -30,7 +30,7 @@ func newCmdEdit(out io.Writer) *cobra.Command {
 	return cmd
 }
 
-const latestWorkflow = "https://raw.githubusercontent.com/artefactual/archivematica/qa/1.x/src/MCPServer/lib/assets/workflow.json"
+const latestWorkflow = "https://raw.githubusercontent.com/artefactual/archivematica/refs/heads/qa/1.x/src/archivematica/MCPServer/assets/workflow.json"
 
 func edit(out io.Writer) error {
 	if editLatest {
