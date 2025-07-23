@@ -1,10 +1,10 @@
 module github.com/artefactual-labs/amflow
 
-go 1.24.4
+go 1.24.5
 
 require (
 	github.com/goadesign/goa v1.4.3
-	github.com/olekukonko/tablewriter v1.0.7
+	github.com/olekukonko/tablewriter v1.0.8
 	github.com/pkg/errors v0.9.1
 	github.com/sirupsen/logrus v1.9.3
 	github.com/spf13/cobra v1.9.1
