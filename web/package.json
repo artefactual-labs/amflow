@@ -12,10 +12,10 @@
   },
   "devDependencies": {
     "amd-to-es6": "^0.2.0",
-    "axios": "^1.13.6",
+    "axios": "^1.15.0",
     "file-saver": "^2.0.5",
-    "npm-check-updates": "^19.6.5",
-    "panzoom": "^9.4.3",
-    "vite": "^8.0.2"
+    "npm-check-updates": "^20.0.0",
+    "panzoom": "^9.4.4",
+    "vite": "^8.0.8"
   }
 }
