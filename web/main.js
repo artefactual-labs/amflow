@@ -1,11 +1,11 @@
 import './style.css'
 import panzoom from 'panzoom';
 import { saveAs } from 'file-saver';
-import createClient from './client.es6.js'
+import createAPI from './api.js'
 import getLocation from './location.js'
 
 const { scheme, host } = getLocation(window);
-const client = createClient(scheme, host);
+const api = createAPI(scheme, host);
 
 const parse = (blob) => {
   const parser = new DOMParser();
@@ -13,18 +13,18 @@ const parse = (blob) => {
   return doc.documentElement;
 }
 
-const loadDocument = (config) => {
-  return client.showWorkflow("/workflow/default", config);
+const loadDocument = (options) => {
+  return api.showWorkflow("default", options);
 }
 
 let panzoomInstance;
 
 const loadGraph = () => {
-  loadDocument().then((resp) => {
+  loadDocument().then((workflowDocument) => {
     try {
       const viewport = document.querySelector("#viewport");
       viewport.innerHTML = "";
-      viewport.appendChild(parse(resp.data));
+      viewport.appendChild(parse(workflowDocument));
       panzoomInstance = panzoom(viewport, { minZoom: 0.01, zoomSpeed: 0.3, autocenter: false });
       panzoomInstance.zoomAbs(0, 0, 0.1);
     } catch (error) {
@@ -38,8 +38,8 @@ const loadGraph = () => {
 };
 
 const saveGraph = () => {
-  loadDocument({ responseType: "blob" }).then((resp) => {
-    saveAs(resp.data, "workflow.svg", {type: "image/svg+xml"});
+  loadDocument({ responseType: "blob" }).then((workflowDocument) => {
+    saveAs(workflowDocument, "workflow.svg", {type: "image/svg+xml"});
   }).catch((error) => {
     console.error(error);
     alert("An error occurred while retrieving the data.");
@@ -85,20 +85,37 @@ const zoomElement = (element) => {
 // Write the initial layout of the application.
 document.querySelector('#app').innerHTML = `
   <div class="wrapper">
-    <div class="box sidebar">
-      <button class="reload">Reload</button>
-      <button class="save">Save</button>
-      <input class="search" type="text" placeholder="Search (shift + /)"/>
-    </div>
-    <div class="box content">
+    <header class="toolbar">
+      <div class="brand" aria-label="amflow">
+        <span class="brand-mark" aria-hidden="true">a</span>
+        <span class="brand-name">amflow</span>
+      </div>
+      <label class="search-field">
+        <span class="search-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Search workflow</span>
+        <input
+          class="search"
+          type="search"
+          placeholder="Search workflow"
+          autocomplete="off"
+          spellcheck="false"
+        >
+        <kbd class="search-shortcut" aria-hidden="true">⇧ /</kbd>
+      </label>
+      <div class="toolbar-actions">
+        <button class="reload" type="button">Reload</button>
+        <button class="save" type="button">Save SVG</button>
+      </div>
+    </header>
+    <main class="content">
       <div id="viewport"></div>
-    </div>
+    </main>
   </div>
 `
 
 // Focus the search box when shift and `/` keys are pressed simultaneously.
 window.addEventListener('keydown', (event) => {
-  if (event.shiftKey && event.key === '/') {
+  if (event.shiftKey && event.code === 'Slash') {
     event.preventDefault();
     const search = document.querySelector('.search');
     if (search) {

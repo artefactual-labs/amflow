@@ -1,8 +1,9 @@
-FROM node:18 as frontend
-WORKDIR /src
-COPY web /src/web
-RUN npm --cwd /src/web ci
-RUN npm --cwd /src/web run build
+FROM node:24 AS frontend
+WORKDIR /src/web
+COPY web/package.json web/package-lock.json ./
+RUN npm ci
+COPY web ./
+RUN npm run build
 
 FROM golang:1.21.1-alpine AS build
 RUN apk add --no-cache ca-certificates git make
