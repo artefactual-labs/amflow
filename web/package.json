@@ -14,9 +14,9 @@
   },
   "devDependencies": {
     "file-saver": "^2.0.5",
-    "npm-check-updates": "^23.0.0",
+    "npm-check-updates": "^23.0.2",
     "panzoom": "^9.4.4",
-    "vite": "^8.1.5"
+    "vite": "^8.2.1"
   },
   "allowScripts": {
     "fsevents@2.3.3": true
