@@ -6,13 +6,39 @@ on:
     # Daily, at 1pm UTC / 6am PST.
     - cron: "0 13 * * *"
 
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
 jobs:
   govulncheck:
     name: Go vulnerability check
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: read
     steps:
-      - name: Run govulncheck
-        uses: golang/govulncheck-action@v1
+      - name: Check out code
+        uses: actions/checkout@v7.0.1
         with:
-          repo-checkout: true
+          persist-credentials: false
+      - name: Install Go
+        uses: actions/setup-go@v7.0.0
+        with:
           go-version-file: go.mod
+      - name: Install Node.js
+        uses: actions/setup-node@v7.1.0
+        with:
+          node-version: '24.22.1'
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - name: Build frontend
+        run: make frontend
+      - name: Run govulncheck
+        run: go run golang.org/x/vuln/cmd/govulncheck@v1.9.0 ./...

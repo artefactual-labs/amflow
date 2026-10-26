@@ -2,7 +2,7 @@ package graph
 
 import "gonum.org/v1/gonum/graph"
 
-// List ancestors of a given vertice.
+// ListAncestors lists the ancestors of a given vertex.
 // It does depth-first search supported by a stack.
 func ListAncestors(w *Workflow, amid string) int64s {
 	var stack stack

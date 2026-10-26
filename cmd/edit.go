@@ -1,8 +1,10 @@
 package cmd
 
 import (
+	"errors"
 	"io"
 	"net"
+	"net/http"
 
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
@@ -50,10 +52,10 @@ func edit(out io.Writer) error {
 	}
 	defer ln.Close()
 	logger := logrus.WithField("subsystem", "api")
-	logger.WithField("port", ln.Addr()).Info("Staring API server")
+	logger.WithField("port", ln.Addr()).Info("Starting API server")
 	svc := api.Create(w, logger)
-	if err := svc.Serve(ln); err != nil {
-		svc.LogError("startup", "err", err)
+	if err := svc.Serve(ln); err != nil && !errors.Is(err, http.ErrServerClosed) {
+		return err
 	}
 
 	return nil

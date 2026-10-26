@@ -1,0 +1,37 @@
+version: 2
+
+# Inline tool versions, action inputs, and Debian package/snapshot pins require
+# manual updates; Dependabot monitors the supported manifests below.
+updates:
+  - package-ecosystem: gomod
+    directory: /
+    schedule:
+      interval: daily
+    cooldown:
+      default-days: 7
+    allow:
+      - dependency-type: all
+
+  - package-ecosystem: npm
+    directory: /web
+    schedule:
+      interval: daily
+    cooldown:
+      default-days: 7
+    allow:
+      - dependency-type: all
+
+  # Covers Dockerfile and Dockerfile.release, including image digest pins.
+  - package-ecosystem: docker
+    directory: /
+    schedule:
+      interval: daily
+    cooldown:
+      default-days: 7
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: daily
+    cooldown:
+      default-days: 7

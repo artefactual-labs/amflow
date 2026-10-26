@@ -67,7 +67,7 @@ func (w *Workflow) addVertex(v amjson.Vertex) Vertex {
 	return vertex
 }
 
-// Vertex returns a workflow vertex given its AMD.
+// VertexByAMID returns a workflow vertex given its Archivematica ID.
 func (w Workflow) VertexByAMID(amid string) Vertex {
 	v, ok := w.vxByAMID[amid]
 	if !ok {
@@ -76,7 +76,7 @@ func (w Workflow) VertexByAMID(amid string) Vertex {
 	return v
 }
 
-// Vertex returns a workflow vertex given its ID.
+// VertexByID returns a workflow vertex given its graph ID.
 func (w Workflow) VertexByID(id int64) Vertex {
 	v, ok := w.vxByID[id]
 	if !ok {
@@ -330,7 +330,7 @@ func (w *Workflow) load(data *amjson.WorkflowData) {
 	}
 }
 
-// Implement graph.Graph.
+// Node returns the graph node with the given ID.
 func (w Workflow) Node(id int64) graph.Node           { return w.graph.Node(id) }
 func (w Workflow) Nodes() graph.Nodes                 { return w.graph.Nodes() }
 func (w Workflow) From(id int64) graph.Nodes          { return w.graph.From(id) }
@@ -339,7 +339,7 @@ func (w Workflow) Edge(uid, vid int64) graph.Edge     { return w.graph.Edge(uid,
 
 var _ graph.Graph = Workflow{}
 
-// Implement graph.Directed.
+// HasEdgeFromTo reports whether the graph has an edge from uid to vid.
 func (w Workflow) HasEdgeFromTo(uid, vid int64) bool { return w.graph.HasEdgeFromTo(uid, vid) }
 func (w Workflow) To(id int64) graph.Nodes           { return w.graph.To(id) }
 

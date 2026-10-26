@@ -1,8 +1,9 @@
+version: 2
+
 project_name: amflow
 
 before:
   hooks:
-  - make clean
   - make frontend
 
 builds:
@@ -20,27 +21,26 @@ builds:
 checksum:
   name_template: "{{ .ProjectName }}-checksums.txt"
 
-dockers:
-- goos: linux
-  goarch: amd64
-  dockerfile: Dockerfile.release
-  image_templates:
-  - "artefactual/amflow:latest"
-  - "artefactual/amflow:v{{ .Major }}"
-  - "artefactual/amflow:{{ .Tag }}"
-  - "ghcr.io/artefactual-labs/amflow/amflow:latest"
-  - "ghcr.io/artefactual-labs/amflow/amflow:v{{ .Major }}"
-  - "ghcr.io/artefactual-labs/amflow/amflow:{{ .Tag }}"
-  build_flag_templates:
-  - "--pull"
-  - "--platform=linux/amd64"
-  - "--label=org.opencontainers.image.title={{.ProjectName}}"
-  - "--label=org.opencontainers.image.vendor=Artefactual Systems Inc."
-  - "--label=org.opencontainers.image.description=amflow {{.Tag}}"
-  - "--label=org.opencontainers.image.url=https://github.com/artefactual-labs/amflow"
-  - "--label=org.opencontainers.image.documentation=https://github.com/artefactual-labs/amflow/blob/main/README.md"
-  - "--label=org.opencontainers.image.source=https://github.com/artefactual-labs/amflow"
-  - "--label=org.opencontainers.image.licenses=Apache-2.0"
-  - "--label=org.opencontainers.image.version={{.Version}}"
-  - "--label=org.opencontainers.image.revision={{.FullCommit}}"
-  - "--label=org.opencontainers.image.created={{.Date}}"
+dockers_v2:
+- dockerfile: Dockerfile.release
+  sbom: "false"
+  platforms:
+  - linux/amd64
+  images:
+  - artefactual/amflow
+  - ghcr.io/artefactual-labs/amflow/amflow
+  tags:
+  - latest
+  - "v{{ .Major }}"
+  - "{{ .Tag }}"
+  labels:
+    org.opencontainers.image.title: "{{.ProjectName}}"
+    org.opencontainers.image.vendor: Artefactual Systems Inc.
+    org.opencontainers.image.description: "amflow {{.Tag}}"
+    org.opencontainers.image.url: https://github.com/artefactual-labs/amflow
+    org.opencontainers.image.documentation: https://github.com/artefactual-labs/amflow/blob/main/README.md
+    org.opencontainers.image.source: https://github.com/artefactual-labs/amflow
+    org.opencontainers.image.licenses: Apache-2.0
+    org.opencontainers.image.version: "{{.Version}}"
+    org.opencontainers.image.revision: "{{.FullCommit}}"
+    org.opencontainers.image.created: "{{.Date}}"

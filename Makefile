@@ -12,18 +12,13 @@ help:
 	@echo "make targets"
 	@echo
 	@echo "  deps"
-	@echo "  goagen"
 	@echo "  check         check all the things"
 	@echo "  help          this help message"
 
 .PHONY: deps
-deps: tools
+deps:
 	@echo "Downloading modules..."
 	go mod download
-
-.PHONY: goagen
-goagen:
-	@goagen app     -d github.com/artefactual-labs/amflow/design -o internal/api
 
 .PHONY: clean
 clean:
@@ -31,10 +26,11 @@ clean:
 
 .PHONY: build
 build:
-	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 GOFLAGS=-ldflags=-w \
+	CGO_ENABLED=0 \
 	  go build \
 	    -o dist/amflow \
-	    -ldflags="-s -X github.com/artefactual-labs/amflow/internal/version.version=try" \
+	    -trimpath \
+	    -ldflags="-s -w -X github.com/artefactual-labs/amflow/internal/version.version=try" \
 	      github.com/artefactual-labs/amflow
 
 .PHONY: frontend
@@ -65,7 +61,7 @@ fmt:
 
 .PHONY: staticcheck
 staticcheck:
-	staticcheck -checks all,-ST1000,-ST1001 ./...
+	go run honnef.co/go/tools/cmd/staticcheck@v0.8.2 -checks all,-ST1000,-ST1001 ./...
 
 .PHONY: check
 check: test testrace vet fmt staticcheck

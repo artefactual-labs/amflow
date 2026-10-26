@@ -1,7 +1,17 @@
 # This is used by GoReleaser.
-FROM debian:12 AS final
-RUN apt-get update && apt-get install --yes --no-install-recommends graphviz ca-certificates && rm -rf /var/lib/apt/lists/*
-COPY amflow /
-RUN useradd --system --create-home --home-dir=/home/amflow --user-group amflow
+FROM debian:trixie-20261020-slim@sha256:62bd423aeee912639ca8ee681c2b762cb3e25137e0a92b20be455898a9f034ad AS final
+# Keep the runtime and package snapshot in sync with Dockerfile.
+RUN sed -i \
+      -e 's|http://deb.debian.org/debian-security|http://snapshot.debian.org/archive/debian-security/20261026T000000Z|g' \
+      -e 's|http://deb.debian.org/debian|http://snapshot.debian.org/archive/debian/20261026T000000Z|g' \
+      /etc/apt/sources.list.d/debian.sources \
+    && apt-get -o Acquire::Check-Valid-Until=false update \
+    && DEBIAN_FRONTEND=noninteractive apt-get install --yes --no-install-recommends \
+      graphviz=2.42.4-3 \
+      ca-certificates=20250419+deb13u1 \
+    && rm -rf /var/lib/apt/lists/* \
+    && useradd --uid 10001 --create-home --home-dir=/home/amflow --user-group --shell=/usr/sbin/nologin amflow
+ARG TARGETPLATFORM
+COPY $TARGETPLATFORM/amflow /amflow
 USER amflow
 ENTRYPOINT ["/amflow"]
