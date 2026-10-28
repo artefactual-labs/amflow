@@ -5,7 +5,7 @@ version: 'v0.0.3'
 workflows:
     '.github/workflows/ci.yml':
         - 'actions/checkout@v7.0.1'
-        - 'jdx/jactionlint@v2.1.0'
+        - 'jdx/jactionlint@v2.3.0'
     '.github/workflows/nightly.yml':
         - 'actions/checkout@v7.0.1'
         - 'actions/setup-go@v7.0.0'
@@ -47,9 +47,9 @@ dependencies:
         commit: 'sha1-a4f02ab5355a589de60d917a659ce617ed19b3de'
         owner_id: 24697112
         repo_id: 209873006
-    'jdx/jactionlint@v2.1.0':
-        ref: 'v2.1.0'
-        commit: 'sha1-a0bb9f012b6b5760c17c9ccd040001d08002a10e'
+    'jdx/jactionlint@v2.3.0':
+        ref: 'v2.3.0'
+        commit: 'sha1-a65ab044e916760429068fe5794b8306abdfcbb9'
         owner_id: 216188
         repo_id: 1404951382
         uses:
