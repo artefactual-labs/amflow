@@ -16,7 +16,7 @@ COPY . .
 COPY --from=frontend /src/web/dist ./web/dist
 RUN GOOS=$TARGETOS GOARCH=$TARGETARCH make build
 
-FROM debian:trixie-20261020-slim@sha256:62bd423aeee912639ca8ee681c2b762cb3e25137e0a92b20be455898a9f034ad AS final
+FROM debian:trixie-20261104-slim@sha256:a72b4433de1cf7d6bae0c4cee74d0547f58601a643b3375f070c51600d63b6b2 AS final
 # Freeze transitive packages as well as the explicitly installed dependencies.
 RUN sed -i \
       -e 's|http://deb.debian.org/debian-security|http://snapshot.debian.org/archive/debian-security/20261026T000000Z|g' \
