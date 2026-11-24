@@ -1,11 +1,11 @@
-FROM --platform=$BUILDPLATFORM node:24.22.1-trixie-slim@sha256:43b9ba1142b8dcf33fa8f922ca1be85714adc444e0586c7cf7726daaeabc1bea AS frontend
+FROM --platform=$BUILDPLATFORM node:26.13.1-trixie-slim@sha256:e6bedef217677b276c591795e169840edd9096dbf13f29df8ef8d1856b8820bc AS frontend
 WORKDIR /src/web
 COPY web/package.json web/package-lock.json ./
-RUN npm ci
+RUN npx --yes "$(node -p 'require("./package.json").packageManager')" ci
 COPY web ./
-RUN npm run build
+RUN npx --yes "$(node -p 'require("./package.json").packageManager')" run build
 
-FROM --platform=$BUILDPLATFORM golang:1.27.3-trixie@sha256:fbb7ae40b62ff8afe31662df570d39b4f5052ac32b90dae8e60d7657a20a74f4 AS build
+FROM --platform=$BUILDPLATFORM golang:1.27.4-trixie@sha256:f18c3d73a184fb0582828510722e723b63a93f7188d11dd223d9be6f6880e65d AS build
 ARG TARGETOS
 ARG TARGETARCH
 ENV GOTOOLCHAIN=local
@@ -16,11 +16,11 @@ COPY . .
 COPY --from=frontend /src/web/dist ./web/dist
 RUN GOOS=$TARGETOS GOARCH=$TARGETARCH make build
 
-FROM debian:trixie-20261020-slim@sha256:62bd423aeee912639ca8ee681c2b762cb3e25137e0a92b20be455898a9f034ad AS final
+FROM debian:trixie-20261123-slim@sha256:8aa5a7bf5a1955bddbe7d74fcdd0b91ab30e74362a8b73af672b0481b35b44a0 AS final
 # Freeze transitive packages as well as the explicitly installed dependencies.
 RUN sed -i \
-      -e 's|http://deb.debian.org/debian-security|http://snapshot.debian.org/archive/debian-security/20261026T000000Z|g' \
-      -e 's|http://deb.debian.org/debian|http://snapshot.debian.org/archive/debian/20261026T000000Z|g' \
+      -e 's|http://deb.debian.org/debian-security|http://snapshot.debian.org/archive/debian-security/20261124T000000Z|g' \
+      -e 's|http://deb.debian.org/debian|http://snapshot.debian.org/archive/debian/20261124T000000Z|g' \
       /etc/apt/sources.list.d/debian.sources \
     && apt-get -o Acquire::Check-Valid-Until=false update \
     && DEBIAN_FRONTEND=noninteractive apt-get install --yes --no-install-recommends \

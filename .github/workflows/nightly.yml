@@ -19,7 +19,7 @@ defaults:
 jobs:
   govulncheck:
     name: Go vulnerability check
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     timeout-minutes: 15
     permissions:
       contents: read
@@ -29,16 +29,16 @@ jobs:
         with:
           persist-credentials: false
       - name: Install Go
-        uses: actions/setup-go@v7.0.0
+        uses: actions/setup-go@v7.1.0
         with:
           go-version-file: go.mod
       - name: Install Node.js
         uses: actions/setup-node@v7.1.0
         with:
-          node-version: '24.22.1'
+          node-version: '26.13.1'
           cache: npm
           cache-dependency-path: web/package-lock.json
       - name: Build frontend
         run: make frontend
       - name: Run govulncheck
-        run: go run golang.org/x/vuln/cmd/govulncheck@v1.9.0 ./...
+        run: go run golang.org/x/vuln/cmd/govulncheck@v1.10.0 ./...

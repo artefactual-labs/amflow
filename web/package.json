@@ -3,8 +3,9 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "packageManager": "npm@12.2.3",
   "engines": {
-    "node": "^24.22.1"
+    "node": "^26.13.1"
   },
   "scripts": {
     "dev": "vite",
@@ -16,7 +17,7 @@
     "file-saver": "2.0.5",
     "npm-check-updates": "23.1.1",
     "panzoom": "9.4.4",
-    "vite": "8.3.5"
+    "vite": "8.3.8"
   },
   "allowScripts": {
     "fsevents@2.3.3": true

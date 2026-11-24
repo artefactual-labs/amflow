@@ -1,6 +1,7 @@
 GOPATH=$(shell go env GOPATH)
 GOBIN=$(GOPATH)/bin
 GOCMD=go
+NPM=npx --yes $(shell node -p 'require("./web/package.json").packageManager')
 export PATH:=$(GOBIN):$(PATH)
 
 # We don't need make's built-in rules.
@@ -35,8 +36,8 @@ build:
 
 .PHONY: frontend
 frontend:
-	npm --prefix web ci
-	npm --prefix web run build
+	$(NPM) --prefix web ci
+	$(NPM) --prefix web run build
 
 .PHONY: build
 try: build
